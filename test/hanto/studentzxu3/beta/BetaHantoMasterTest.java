@@ -85,7 +85,7 @@ public class BetaHantoMasterTest
 		assertEquals(BUTTERFLY, p.getType());
 	}
 	
-	
+
 	// 2 
 	@Test(expected = HantoException.class)
 	public void  bluePlaceInitialButterflyAtNonOrigin() throws HantoException
@@ -108,7 +108,9 @@ public class BetaHantoMasterTest
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		final MoveResult mr = game.makeMove(SPARROW, null, makeCoordinate(1, 1));
 		assertEquals(OK, mr);
-		
+		final HantoPiece p = game.getPieceAt(makeCoordinate(1, 1));
+		assertEquals(RED, p.getColor());
+		assertEquals(SPARROW, p.getType());
 	}
 	
 	// 5
@@ -128,9 +130,29 @@ public class BetaHantoMasterTest
 		game.makeMove(HORSE, null, makeCoordinate(1,0));
 	}
 	
+	// 7
+	@Test(expected = HantoException.class)
+	public void bluePlacePieceAtOccupiedLoaction() throws HantoException
+	{
+		game.makeMove(SPARROW, null, makeCoordinate(0, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(0, 1));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+	}
+	
+	// 8
+	@Test(expected = HantoException.class)
+	public void redPlacePieceAtOccupiedLoaction() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
+	}
+	
 	// Helper methods
 	private HantoCoordinate makeCoordinate(int x, int y)
 	{
 		return new TestHantoCoordinate(x, y);
 	}
+	
 }

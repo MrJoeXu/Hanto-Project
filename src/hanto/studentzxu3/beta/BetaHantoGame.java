@@ -18,7 +18,7 @@ import hanto.studentzxu3.common.HantoCoordinateImpl;
 import hanto.studentzxu3.common.HantoPieceImpl;
 
 import static hanto.common.HantoPieceType.*;
-import static hanto.common.HantoPlayerColor.BLUE;
+import static hanto.common.HantoPlayerColor.*;
 import static hanto.common.MoveResult.*;
 
 /**
@@ -28,9 +28,8 @@ import static hanto.common.MoveResult.*;
 public class BetaHantoGame implements HantoGame
 {
 	private HantoBoard board = new HantoBoard();
-	private boolean isFirstMove = true;
-	private final HantoPiece blueButterfly = new HantoPieceImpl(BLUE, BUTTERFLY);
-
+	//private boolean isFirstMove = true;
+	private Integer numMoves = 1;
 
 	/*
 	 * @see hanto.common.HantoGame#makeMove(hanto.common.HantoPieceType, hanto.common.HantoCoordinate, hanto.common.HantoCoordinate)
@@ -39,7 +38,9 @@ public class BetaHantoGame implements HantoGame
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException
 	{
-		if (isFirstMove){
+		HantoPlayerColor pieceColor = (numMoves % 2 == 0 ? RED : BLUE);
+		
+		if (numMoves == 1){
 			if (to.getX() != 0 || to.getY() != 0) {
 				throw new HantoException("You can only place your piece at (0,0) for your first move!");
 			}
@@ -49,15 +50,20 @@ public class BetaHantoGame implements HantoGame
 			throw new HantoException("You can only place Butterfly or Sparrow!");
 		}
 		
-		if (!isFirstMove) {
+		if (numMoves == 2) {
 			HantoCoordinate original = new HantoCoordinateImpl(0, 0);
 			if (!board.isAdjacent(original, to)) {
 				throw new HantoException("You have to place your piece adjacent to (0,0)");
 			}
 		}
+		
+		HantoPiece newPiece = new HantoPieceImpl(pieceColor, pieceType);
+		try {
+			board.addNewPiece(to, newPiece);
+		} catch (HantoException e){throw e;}
 
 		
-		isFirstMove = false;
+		numMoves++;
 		return OK;
 	}
 
@@ -67,7 +73,8 @@ public class BetaHantoGame implements HantoGame
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where)
 	{
-		return blueButterfly;
+		HantoPiece targetPiece = board.getPiece(where);
+		return targetPiece;
 	}
 
 	/*
