@@ -22,13 +22,12 @@ import static hanto.common.HantoPlayerColor.*;
 import static hanto.common.MoveResult.*;
 
 /**
- * <<Fill this in>>
+ *  The implementation of Beta Hanto.
  * @version Mar 16, 2016
  */
 public class BetaHantoGame implements HantoGame
 {
 	private HantoBoard board = new HantoBoard();
-	//private boolean isFirstMove = true;
 	private Integer numMoves = 1;
 
 	/*
@@ -45,23 +44,26 @@ public class BetaHantoGame implements HantoGame
 				throw new HantoException("You can only place your piece at (0,0) for your first move!");
 			}
 		}
-		
-		if (pieceType != BUTTERFLY && pieceType != SPARROW) {
-			throw new HantoException("You can only place Butterfly or Sparrow!");
+				
+		if (numMoves > 1) {
+			if (!board.hasAdjacent(to)) {
+				throw new HantoException("You have to place your piece adjacent to existing pieces!");
+			}
 		}
 		
-		if (numMoves == 2) {
-			HantoCoordinate original = new HantoCoordinateImpl(0, 0);
-			if (!board.isAdjacent(original, to)) {
-				throw new HantoException("You have to place your piece adjacent to (0,0)");
+		if (numMoves > 6 && pieceType != BUTTERFLY) {
+			if (!board.hasButterfly(pieceColor)) {
+				throw new HantoException("You have to place Butterfly by fourth round!");
 			}
 		}
 		
 		HantoPiece newPiece = new HantoPieceImpl(pieceColor, pieceType);
 		try {
 			board.addNewPiece(to, newPiece);
-		} catch (HantoException e){throw e;}
-
+		} catch (HantoException e){
+			
+			throw e;
+		}
 		
 		numMoves++;
 		return OK;
@@ -83,8 +85,7 @@ public class BetaHantoGame implements HantoGame
 	@Override
 	public String getPrintableBoard()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return board.printBoard();
 	}
 
 }

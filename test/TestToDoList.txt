@@ -5,14 +5,21 @@ X	Red places first piece at adjacent location of (0,0) -> OK
 X	Red places first piece at non-adjacent location -> Exception
 X	Red place not Butterfly or Sparrow -> Exception
 X	Blue place pieces at an occupied location -> Exception
--	Red place pieces at an occupied location -> Exception
--	Make move for Blue with bad coordinate -> Exception
--	Make move for Red with bad coordinate -> Exception
--	Red moves to origin -> Exception
--	Blue places two butterflies	-> Exception
--	Blue does not place Butterfly by fourth round -> Exception
--	Red does not place Butterfly by fourth round -> Exception
+X	Red place pieces at an occupied location -> Exception
+X	Make move for Blue with bad coordinate -> Exception
+X	Make move for Blue with valid coordinate -> OK
+X	Make move for Red with bad coordinate -> Exception
+X	Make move for Red with valid coordinate -> OK
+X	Red moves to origin -> Exception
+X	Blue places two butterflies	-> Exception
+X	Red places two butterflies	-> Exception
+X	Blue does not place Butterfly by fourth round -> Exception
+X	Red does not place Butterfly by fourth round -> Exception
+X	Blue place Butterfly at fourth round -> OK
+X	Red does not place Butterfly at fourth round -> OK
 -	Blue butterfly is surrounded -> RED_WINS
 -	Red butterfly is surrounded -> BLUE_WINS
+-	Blue tries invalid move	-> RED_WINS
+-	Red tries invalid move -> BLUE_WINS
 -	Six moves are made and there is no winner -> DRAW
 -	Attempt to move after game ends -> Exception
