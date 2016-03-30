@@ -19,6 +19,8 @@ X	Blue place Butterfly at fourth round -> OK
 X	Red does not place Butterfly at fourth round -> OK
 X	Blue butterfly is surrounded -> RED_WINS
 X	Red butterfly is surrounded -> BLUE_WINS
--	Red and Blue butterfly are both surrounded -> DRAW
--	Six moves are made and there is no winner -> DRAW
--	Attempt to move after game ends -> Exception
+X	Red and Blue butterfly are both surrounded -> DRAW
+X	Six moves are made and there is no winner -> DRAW
+X	Blue tries to move a existing piece on board -> Exception
+X	Red tries to move a existing piece on board -> Exception
+X	Attempt to move after game ends -> Exception

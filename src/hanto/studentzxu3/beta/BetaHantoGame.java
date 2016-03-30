@@ -14,7 +14,6 @@ package hanto.studentzxu3.beta;
 
 import hanto.common.*;
 import hanto.studentzxu3.common.HantoBoard;
-import hanto.studentzxu3.common.HantoCoordinateImpl;
 import hanto.studentzxu3.common.HantoPieceImpl;
 
 import static hanto.common.HantoPieceType.*;
@@ -29,6 +28,7 @@ public class BetaHantoGame implements HantoGame
 {
 	private HantoBoard board = new HantoBoard();
 	private Integer numMoves = 1;
+	private boolean gameOver = false;
 
 	/*
 	 * @see hanto.common.HantoGame#makeMove(hanto.common.HantoPieceType, hanto.common.HantoCoordinate, hanto.common.HantoCoordinate)
@@ -38,7 +38,15 @@ public class BetaHantoGame implements HantoGame
 			HantoCoordinate to) throws HantoException
 	{
 		HantoPlayerColor pieceColor = (numMoves % 2 == 0 ? RED : BLUE);
+		
+		if (gameOver) {
+			throw new HantoException("Game is over. You can not make a move");
+		}
 		 
+		if (from != null) {
+			throw new HantoException("You can only place piece on board, don't move them!");
+		}
+		
 		if (numMoves == 1){
 			if (to.getX() != 0 || to.getY() != 0) {
 				throw new HantoException("You can only place your piece at (0,0) for your first move!");
@@ -62,18 +70,8 @@ public class BetaHantoGame implements HantoGame
 			board.addNewPiece(to, newPiece);
 		} catch (HantoException e){ throw e; }
 		
-		if (board.butterflyIsSurrounded(BLUE) && board.butterflyIsSurrounded(RED)) {
-			return DRAW;
-		}
-		else if (board.butterflyIsSurrounded(BLUE)) {
-			return RED_WINS;
-		}
-		else if (board.butterflyIsSurrounded(RED)) {
-			return BLUE_WINS;
-		}
-		
 		numMoves++;
-		return OK;
+		return evaluateGameState();
 	}
 
 	/*
@@ -93,6 +91,28 @@ public class BetaHantoGame implements HantoGame
 	public String getPrintableBoard()
 	{
 		return board.printBoard();
+	}
+	
+	private MoveResult evaluateGameState () {
+		if (board.butterflyIsSurrounded(BLUE) && board.butterflyIsSurrounded(RED)) {
+			gameOver = true;
+			return DRAW;
+		}
+		else if (board.butterflyIsSurrounded(BLUE)) {
+			gameOver = true;
+			return RED_WINS;
+		}
+		else if (board.butterflyIsSurrounded(RED)) {
+			gameOver = true;
+			return BLUE_WINS;
+		}
+		else if (numMoves > 12) {
+			gameOver = true;
+			return DRAW;
+		}
+		
+		return OK;
+		
 	}
 
 }
