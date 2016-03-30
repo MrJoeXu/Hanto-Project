@@ -9,6 +9,7 @@ import static hanto.common.HantoPlayerColor.*;
 
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ import hanto.common.*;
 public class HantoBoard {
 	
 	
-	private Hashtable<HantoCoordinate, HantoPiece> board = new Hashtable<HantoCoordinate, HantoPiece>();
+	private Map<HantoCoordinate, HantoPiece> board = new Hashtable<HantoCoordinate, HantoPiece>();
 	private Integer blueButterflyCount = 0;
 	private Integer redButterflyCount = 0;
 	
@@ -29,8 +30,12 @@ public class HantoBoard {
 	/**
 	 * Add piece to board. Map the coordinate with placed piece
 	 * 
-	 * @param HantoCoordinate where
-	 * @param HantoPiece what
+	 * @param where
+	 * 		 	The destination coordinate of new piece
+	 * @param what
+	 * 			The type of new piece 
+	 * @throws HantoException
+	 *             if there are any problems in adding the piece (such as place a piece at an occupied location)
 	 */
 	public void addNewPiece(HantoCoordinate where, HantoPiece what) throws HantoException{
 
@@ -56,10 +61,11 @@ public class HantoBoard {
 
 	
 	/**
-	 * check if two hex are adjacent to each other
+	 * check if an coordinate has adjacent around it
 	 * 
-	 * @param HantoCoordinate coordinate of hex A
-	 * @param HantoCoordintae coordinate of hex B
+	 * @param A
+	 * 			coordinate of hex 
+	 * @return whether hex has adjacent
 	 */
 	public boolean hasAdjacent(HantoCoordinate A) {
 		Set<HantoCoordinate> keys = board.keySet();
@@ -77,7 +83,11 @@ public class HantoBoard {
 	/**
 	 * check if player placed has already placed Butterfly
 	 * 
-	 * @param HantoPlayerColor pieceColor
+	 * @param pieceColor
+	 * 			the color of player
+	 * 
+	 * @return whether the player had placed Butterfly already
+	 * 
 	 */
 	public boolean hasButterfly(HantoPlayerColor pieceColor) {
 		if (pieceColor == BLUE) {
@@ -88,16 +98,29 @@ public class HantoBoard {
 		}
 	}
 	
+	
+	
+	
 	/**
 	 * get the coordinate of piece on the board
 	 *
-	 * @param HantoCoordinate where
+	 * @param where
+	 * 			coordinate of target piece
+	 * @return the requested piece
 	 */
 	public HantoPiece getPiece(HantoCoordinate where) {
 		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
 		return board.get(copyWhere);
 	}
 	
+	
+	/**
+	 * get the coordinate of piece on the board
+	 *
+	 * @param playerColor
+	 * 			determine which side to check
+	 * @return whether the butterfly is surrounded
+	 */
 	public boolean butterflyIsSurrounded(HantoPlayerColor playerColor) {
 		Set<HantoCoordinate> keys = board.keySet();
 		for (HantoCoordinate key : keys) {
@@ -132,7 +155,8 @@ public class HantoBoard {
 	
 	/**
 	 * get a list of coordinate that adjacent to startCoor
-	 *
+	 * @param startCoor
+	 * 		the origin coordinate
 	 * @return string 
 	 */
 	private Queue<HantoCoordinate> getAdjacent(HantoCoordinate startCoor) {
@@ -153,8 +177,8 @@ public class HantoBoard {
 	/**
 	 * Calculate the distance between two coordinates
 	 * 
-	 * @param HantoCoordinate coordinate of source
-	 * @param HantoCoordintae coordinate of destination
+	 * @param from
+	 * @param to
 	 */
 	private static int calculateDistance(HantoCoordinate from, HantoCoordinate to) {
 		int dx = Math.abs(to.getX() - from.getX());
@@ -166,14 +190,16 @@ public class HantoBoard {
 	
 	/**
 	 * Update the number of butterfly piece
-	 * @param what
+	 * @param checkPiece
 	 */
 	private void updateButterflyCount(HantoPiece checkPiece) {
 		if (checkPiece.getType() == HantoPieceType.BUTTERFLY) {
 			if(checkPiece.getColor() == BLUE) {
 				blueButterflyCount++;
+			} 
+			else {
+				redButterflyCount++; 
 			}
-			else { redButterflyCount++; }
 		}
 	}
 	

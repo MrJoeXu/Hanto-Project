@@ -68,7 +68,9 @@ public class BetaHantoGame implements HantoGame
 		HantoPiece newPiece = new HantoPieceImpl(pieceColor, pieceType);
 		try {
 			board.addNewPiece(to, newPiece);
-		} catch (HantoException e){ throw e; }
+		} catch (HantoException e){ 
+			throw new HantoException(e.getMessage()); 
+		} 
 		
 		numMoves++;
 		return evaluateGameState();

@@ -11,7 +11,6 @@
 package hanto.studentzxu3;
 
 import hanto.common.*;
-import hanto.studentzxu3.alpha.AlphaHantoGame;
 import hanto.studentzxu3.beta.BetaHantoGame;
 
 /**
@@ -62,7 +61,7 @@ public class HantoGameFactory
 		HantoGame game = null;
 		switch (gameId) {
 			case ALPHA_HANTO:
-				game = new AlphaHantoGame();
+				//game = new AlphaHantoGame();
 				break;
 			case BETA_HANTO:
 				game = new BetaHantoGame();
