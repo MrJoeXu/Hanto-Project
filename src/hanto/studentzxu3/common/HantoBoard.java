@@ -8,6 +8,8 @@ import static hanto.common.HantoPieceType.SPARROW;
 import static hanto.common.HantoPlayerColor.*;
 
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 import hanto.common.*;
@@ -71,6 +73,7 @@ public class HantoBoard {
 	}
 	
 	
+	
 	/**
 	 * check if player placed has already placed Butterfly
 	 * 
@@ -95,6 +98,23 @@ public class HantoBoard {
 		return board.get(copyWhere);
 	}
 	
+	public boolean butterflyIsSurrounded(HantoPlayerColor playerColor) {
+		Set<HantoCoordinate> keys = board.keySet();
+		for (HantoCoordinate key : keys) {
+			if (board.get(key).getType() == BUTTERFLY && board.get(key).getColor() == playerColor) {
+				HantoCoordinate butterflyCoord= new HantoCoordinateImpl(key.getX(), key.getY());
+				Queue<HantoCoordinate> adjacents = getAdjacent(butterflyCoord);
+				for (HantoCoordinate a : adjacents) {
+					if(!board.containsKey(a)) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * print board
@@ -108,6 +128,26 @@ public class HantoBoard {
 					+ board.get(key).getType().getPrintableName() + "\n";
 		}
 		return boardString;
+	}
+	
+	/**
+	 * get a list of coordinate that adjacent to startCoor
+	 *
+	 * @return string 
+	 */
+	private Queue<HantoCoordinate> getAdjacent(HantoCoordinate startCoor) {
+		Queue<HantoCoordinate> adjacents = new LinkedList<HantoCoordinate>();
+		int x = startCoor.getX();
+		int y = startCoor.getY();
+		
+		adjacents.add(new HantoCoordinateImpl(x,y+1));
+		adjacents.add(new HantoCoordinateImpl(x,y-1));
+		adjacents.add(new HantoCoordinateImpl(x+1,y));
+		adjacents.add(new HantoCoordinateImpl(x-1,y));
+		adjacents.add(new HantoCoordinateImpl(x-1,y+1));
+		adjacents.add(new HantoCoordinateImpl(x+1,y-1));
+		
+		return adjacents;
 	}
 	
 	/**

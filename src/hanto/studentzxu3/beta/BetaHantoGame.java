@@ -38,7 +38,7 @@ public class BetaHantoGame implements HantoGame
 			HantoCoordinate to) throws HantoException
 	{
 		HantoPlayerColor pieceColor = (numMoves % 2 == 0 ? RED : BLUE);
-		
+		 
 		if (numMoves == 1){
 			if (to.getX() != 0 || to.getY() != 0) {
 				throw new HantoException("You can only place your piece at (0,0) for your first move!");
@@ -60,9 +60,16 @@ public class BetaHantoGame implements HantoGame
 		HantoPiece newPiece = new HantoPieceImpl(pieceColor, pieceType);
 		try {
 			board.addNewPiece(to, newPiece);
-		} catch (HantoException e){
-			
-			throw e;
+		} catch (HantoException e){ throw e; }
+		
+		if (board.butterflyIsSurrounded(BLUE) && board.butterflyIsSurrounded(RED)) {
+			return DRAW;
+		}
+		else if (board.butterflyIsSurrounded(BLUE)) {
+			return RED_WINS;
+		}
+		else if (board.butterflyIsSurrounded(RED)) {
+			return BLUE_WINS;
 		}
 		
 		numMoves++;
