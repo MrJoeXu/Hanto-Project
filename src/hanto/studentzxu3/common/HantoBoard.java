@@ -71,6 +71,7 @@ public class HantoBoard {
 		Set<HantoCoordinate> keys = board.keySet();
 		for (HantoCoordinate key : keys) {
 			int distance = calculateDistance(A, key);
+			System.out.print(distance);
 			if (distance == 1) {
 				return true;
 			}
@@ -181,9 +182,20 @@ public class HantoBoard {
 	 * @param to
 	 */
 	private static int calculateDistance(HantoCoordinate from, HantoCoordinate to) {
+		int distance = 0;
 		int dx = Math.abs(to.getX() - from.getX());
 		int dy = Math.abs(to.getY() - from.getY());
-		int distance = (dx + dy + Math.abs(dx - dy))/2;
+		if (to.getX() == to.getY() && from.getX() == from.getY()) {
+			distance = dx + dy + Math.abs(dx - dy);
+		}
+		else {
+			distance = (dx + dy + Math.abs(dx - dy))/2;
+
+		}
+		System.out.println("dx: " + dx);
+		System.out.println("dy: " + dy);
+
+
 		
 		return distance;
 	}

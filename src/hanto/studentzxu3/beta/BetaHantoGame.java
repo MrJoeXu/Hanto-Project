@@ -26,9 +26,23 @@ import static hanto.common.MoveResult.*;
  */
 public class BetaHantoGame implements HantoGame
 {
-	private HantoBoard board = new HantoBoard();
-	private Integer numMoves = 1;
-	private boolean gameOver = false;
+	private final HantoPlayerColor colorFirstMoves;
+	private HantoBoard board;
+	private Integer numMoves;
+	private boolean gameOver;
+	
+	
+	/**
+	 * Default constructor
+	 * @param movesFirst color of the player who moves first.
+	 */
+	public BetaHantoGame(HantoPlayerColor movesFirst)
+	{
+		colorFirstMoves =  movesFirst;
+		board = new HantoBoard();
+		numMoves = 1;
+		gameOver = false;
+	}
 
 	/*
 	 * @see hanto.common.HantoGame#makeMove(hanto.common.HantoPieceType, hanto.common.HantoCoordinate, hanto.common.HantoCoordinate)
@@ -37,7 +51,8 @@ public class BetaHantoGame implements HantoGame
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException
 	{
-		HantoPlayerColor pieceColor = (numMoves % 2 == 0 ? RED : BLUE);
+		
+		HantoPlayerColor pieceColor = updatePieceColor();
 		
 		if (gameOver) {
 			throw new HantoException("Game is over. You can not make a move");
@@ -115,6 +130,19 @@ public class BetaHantoGame implements HantoGame
 		
 		return OK;
 		
+	}
+	
+	
+	/*
+	 * Determine the which player moves based on number of moves so far and first plyaer that moves
+	 */
+	private HantoPlayerColor updatePieceColor() {
+		if (colorFirstMoves == BLUE) {
+			return (numMoves % 2 == 0 ? RED : BLUE);
+		}
+		else {
+			return (numMoves % 2 == 0 ? BLUE : RED);
+		}
 	}
 
 }

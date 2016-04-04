@@ -64,7 +64,7 @@ public class HantoGameFactory
 				//game = new AlphaHantoGame();
 				break;
 			case BETA_HANTO:
-				game = new BetaHantoGame();
+				game = new BetaHantoGame(movesFirst);
 				break;
 		}
 		return game;

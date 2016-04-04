@@ -106,9 +106,9 @@ public class BetaHantoMasterTest
 	public void redPlaceInitialPieceAdjacentToOrigin() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
-		final MoveResult mr = game.makeMove(SPARROW, null, makeCoordinate(1, 1));
+		final MoveResult mr = game.makeMove(SPARROW, null, makeCoordinate(1, 0));
 		assertEquals(OK, mr);
-		final HantoPiece p = game.getPieceAt(makeCoordinate(1, 1));
+		final HantoPiece p = game.getPieceAt(makeCoordinate(1, 0));
 		assertEquals(RED, p.getColor());
 		assertEquals(SPARROW, p.getType());
 	}
@@ -148,6 +148,27 @@ public class BetaHantoMasterTest
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
 	}
+
+
+  @Test	// 3
+	public void redPlacesInitialSparrowAtOrigin() throws HantoException
+	{
+		game = factory.makeHantoGame(HantoGameID.BETA_HANTO, RED);	// RedFirst
+		final MoveResult mr = game.makeMove(SPARROW, null, makeCoordinate(0, 0));
+		assertEquals(OK, mr);
+		final HantoPiece p = game.getPieceAt(makeCoordinate(0, 0));
+		assertEquals(RED, p.getColor());
+		assertEquals(SPARROW, p.getType());
+	}
+
+  @Test(expected = HantoException.class)	// 5
+  public void validFirstMoveNonAdjacentHexSecondMove() throws HantoException
+  {
+	System.out.println("TARGET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    game.makeMove(SPARROW,  null, makeCoordinate(0, 0));
+    game.makeMove(BUTTERFLY, null, makeCoordinate(1, 1));
+  }
+
 	
 	// 9
 	@Test(expected = HantoException.class)
