@@ -20,16 +20,18 @@ public class HantoPieceImpl implements HantoPiece
 {
 	private final HantoPlayerColor color;
 	private final HantoPieceType type;
+	private final MoveValidatorStrategy validator;
 	
 	/**
 	 * Deafault constructor
 	 * @param color the piece color
 	 * @param type the piece type
 	 */
-	public HantoPieceImpl(HantoPlayerColor color, HantoPieceType type)
+	public HantoPieceImpl(HantoPlayerColor color, HantoPieceType type, MoveValidatorStrategy validator)
 	{
 		this.color = color;
 		this.type = type;
+		this.validator = validator;
 	}
 	/*
 	 * @see hanto.common.HantoPiece#getColor()
@@ -47,5 +49,10 @@ public class HantoPieceImpl implements HantoPiece
 	public HantoPieceType getType()
 	{
 		return type;
+	}
+	
+	public boolean canMove(final HantoCoordinate from, final HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException 
+	{
+		return validator.canMove(from, to, color, board);
 	}
 }

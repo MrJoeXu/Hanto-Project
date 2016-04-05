@@ -66,6 +66,8 @@ public class HantoGameFactory
 			case BETA_HANTO:
 				game = new BetaHantoGame(movesFirst);
 				break;
+		default:
+			break;
 		}
 		return game;
 	}

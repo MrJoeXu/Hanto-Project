@@ -1,10 +1,16 @@
-/**
- * 
- */
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package hanto.studentzxu3.common;
 
-import static hanto.common.HantoPieceType.BUTTERFLY;
-import static hanto.common.HantoPieceType.SPARROW;
+import static hanto.common.HantoPieceType.*;
 import static hanto.common.HantoPlayerColor.*;
 
 import java.util.Hashtable;
@@ -24,6 +30,7 @@ public class HantoBoard {
 	private Map<HantoCoordinate, HantoPiece> board = new Hashtable<HantoCoordinate, HantoPiece>();
 	private Integer blueButterflyCount = 0;
 	private Integer redButterflyCount = 0;
+	private Integer numMoves = 1;
 	
 	
 	/**
@@ -38,14 +45,11 @@ public class HantoBoard {
 		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
 		updateButterflyCount(what);	
 		board.put(copyWhere, what);
+		numMoves++;
 	}
 
 
-	
-
-	
-	
-	
+		
 	/**
 	 * check if player placed has already placed Butterfly
 	 * 
@@ -65,51 +69,6 @@ public class HantoBoard {
 	}
 	
 	
-	
-	/**
-	 * @return number of blue butterfly on the board
-	 * 
-	 */
-	public Integer getBlueButterflyCount() {
-		return blueButterflyCount;
-	}
-
-	
-	/**
-	 * @return number of red butterfly on the board
-	 * 
-	 */
-	public Integer getRedButterflyCount() {
-		return redButterflyCount;
-	}
-
-
-	/**
-	 * get the coordinate of piece on the board
-	 *
-	 * @param where
-	 * 			coordinate of target piece
-	 * @return the requested piece
-	 */
-	public HantoPiece getPiece(HantoCoordinate where) {
-		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
-		return board.get(copyWhere);
-	}
-	
-	
-	/**
-	 * Get the set of coordinate that already been occupied on board
-	 *
-	 * @return Set of HantoCoordinate
-	 */
-	public Set<HantoCoordinate> getOccupiedCoordinate() {
-		return board.keySet();
-	}
-	
-	public boolean isCooedinateOccupied(HantoCoordinate where) {
-		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
-		return board.containsKey(copyWhere);
-	}
 	
 	/**
 	 * get the coordinate of piece on the board
@@ -135,8 +94,17 @@ public class HantoBoard {
 		return false;
 	}
 	
-
 	
+	/**
+	 *
+	 * @return whether the coordinate indicated has been occupied
+	 */
+	public boolean isCooedinateOccupied(HantoCoordinate where) {
+		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
+		return board.containsKey(copyWhere);
+	}
+	
+
 	
 	/**
 	 * print board
@@ -152,13 +120,68 @@ public class HantoBoard {
 		return boardString;
 	}
 	
-
+		
 	
-
+	
+	/*
+	 *-----------------------Getters-------------------------------- 
+	 */
+	
 	
 	/**
-	 * Update the number of butterfly piece
-	 * @param checkPiece
+	 * @return number of blue butterfly on the board
+	 * 
+	 */
+	public Integer getBlueButterflyCount() {
+		return blueButterflyCount;
+	}
+
+	/**
+	 * @return number of red butterfly on the board
+	 * 
+	 */
+	public Integer getRedButterflyCount() {
+		return redButterflyCount;
+	}
+	
+
+	/**
+	 * 
+	 * @return number of moves that has been made so for
+	 * 
+	 */
+	public Integer getNumMoves() {
+		return numMoves;
+	}
+
+
+	/**
+	 * get the coordinate of piece on the board
+	 *
+	 * @param where
+	 * 			coordinate of target piece
+	 * @return the requested piece
+	 */
+	public HantoPiece getPiece(HantoCoordinate where) {
+		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
+		return board.get(copyWhere);
+	}
+	
+	
+	/**
+	 * Get the set of coordinate that already been occupied on board
+	 *
+	 * @return Set of HantoCoordinate
+	 */
+	public Set<HantoCoordinate> getOccupiedCoordinates() {
+		return board.keySet();
+	}	
+	
+	
+	
+	
+	/*
+	 *-----------------------Helper Method-------------------------------- 
 	 */
 	private void updateButterflyCount(HantoPiece checkPiece) {
 		if (checkPiece.getType() == HantoPieceType.BUTTERFLY) {
@@ -170,6 +193,4 @@ public class HantoBoard {
 			}
 		}
 	}
-	
-	
 }
