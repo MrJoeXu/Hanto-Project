@@ -5,8 +5,6 @@ package hanto.studentzxu3.beta;
 
 import static hanto.common.HantoPieceType.BUTTERFLY;
 import static hanto.common.HantoPieceType.SPARROW;
-import static hanto.common.HantoPlayerColor.BLUE;
-import static hanto.common.HantoPlayerColor.RED;
 
 import java.util.Set;
 

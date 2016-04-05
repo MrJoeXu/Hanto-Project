@@ -13,6 +13,7 @@
 package hanto.studentzxu3.beta;
 
 import hanto.common.*;
+import hanto.studentzxu3.common.GameStateUpdaterStrategy;
 import hanto.studentzxu3.common.HantoBoard;
 import hanto.studentzxu3.common.HantoCoordinateImpl;
 import hanto.studentzxu3.common.HantoPieceFactory;
@@ -32,6 +33,7 @@ public class BetaHantoGame implements HantoGame
 	private HantoBoard board;
 	private boolean gameOver;
 	private HantoPieceFactory pieceFactory;
+	private GameStateUpdaterStrategy stateUpdater;
 	
 	
 	/**
@@ -43,7 +45,8 @@ public class BetaHantoGame implements HantoGame
 		colorFirstMoves =  movesFirst;
 		board = new HantoBoard();
 		gameOver = false;
-		pieceFactory = new HantoPieceFactory();
+		pieceFactory = new BetaPieceFactory();
+		stateUpdater = new BetaGameStateUpdater();
 	}
 
 	
@@ -68,7 +71,9 @@ public class BetaHantoGame implements HantoGame
 			board.addNewPiece(destination, newPiece);		
 		}
 		
-		return evaluateGameState();
+		MoveResult result = stateUpdater.updateGameState(board);
+		if (result != OK) gameOver=true; 
+		return result;
 	}
 
 	
@@ -90,32 +95,12 @@ public class BetaHantoGame implements HantoGame
 	{
 		return board.printBoard();
 	}
-	
-	private MoveResult evaluateGameState () {
-		if (board.butterflyIsSurrounded(BLUE) && board.butterflyIsSurrounded(RED)) {
-			gameOver = true;
-			return DRAW;
-		}
-		else if (board.butterflyIsSurrounded(BLUE)) {
-			gameOver = true;
-			return RED_WINS;
-		}
-		else if (board.butterflyIsSurrounded(RED)) {
-			gameOver = true;
-			return BLUE_WINS;
-		}
-		else if (board.getNumMoves() > 12) {
-			gameOver = true;
-			return DRAW;
-		}
-		
-		return OK;
-		
-	}
-	
-	
+
 	
 
+	/*
+	 * ------------------------ Helper Methods ----------------------------------------
+	 */
 	
 	/**
 	 * Determine the which player moves based on number of moves so far and first player that moves

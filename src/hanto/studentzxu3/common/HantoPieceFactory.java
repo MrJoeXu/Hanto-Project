@@ -23,30 +23,12 @@ import hanto.common.HantoException;
  * This is a singleton class that provides a factory to create an instance of any kind of HantoPiece
  * @author JoeXu
  */
-public class HantoPieceFactory {
-	
-	public HantoPieceFactory() {};
+public interface HantoPieceFactory {
 	
 	/**
 	 * Factory method that returns the appropriately HantoPieceImpl with its validator
 	 * @param type of desired piece
 	 * @param color of desired piece
 	 */
-	public  HantoPieceImpl makeHantoPiece(HantoPieceType pieceType, HantoPlayerColor pieceColor) throws HantoException {
-		HantoPieceImpl piece = null;
-		switch (pieceType) {
-			case BUTTERFLY:
-				MoveValidatorStrategy butterflyValid = new ButterflyValidator();
-				piece = new HantoPieceImpl(pieceColor, BUTTERFLY, butterflyValid);
-				break;
-			case SPARROW:
-				MoveValidatorStrategy sparrowValid = new SparrowValidator();
-				piece = new HantoPieceImpl(pieceColor, SPARROW, sparrowValid);
-				break;
-		default:
-			throw new HantoException("You can only place Butterfly or Sparrow!");
-		}
-		return piece;
-	}
-
+	public  HantoPieceImpl makeHantoPiece(HantoPieceType pieceType, HantoPlayerColor pieceColor) throws HantoException;
 }
