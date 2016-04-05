@@ -278,6 +278,7 @@ public class BetaHantoMasterTest
 	// 19
 	@Test
 	public void redDoesPlaceButterflyAtFourthRound() throws HantoException {
+		System.out.print("NEW TARGET!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0,0));
 		game.makeMove(SPARROW, null, makeCoordinate(1,0));
 		game.makeMove(SPARROW, null, makeCoordinate(1,-1));

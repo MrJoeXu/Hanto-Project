@@ -8,7 +8,6 @@ import static hanto.common.HantoPieceType.SPARROW;
 import static hanto.common.HantoPlayerColor.*;
 
 import java.util.Hashtable;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -34,50 +33,16 @@ public class HantoBoard {
 	 * 		 	The destination coordinate of new piece
 	 * @param what
 	 * 			The type of new piece 
-	 * @throws HantoException
-	 *             if there are any problems in adding the piece (such as place a piece at an occupied location)
 	 */
-	public void addNewPiece(HantoCoordinate where, HantoPiece what) throws HantoException{
-
-		
+	public void addNewPiece(HantoCoordinate where, HantoPiece what) {
 		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
-		if (board.containsKey(copyWhere)) {
-			throw new HantoException("Uable to place piece at this location!");
-		}
-		
-		if (what.getType() != BUTTERFLY && what.getType() != SPARROW) {
-			throw new HantoException("You can only place Butterfly or Sparrow!");
-		}
-
 		updateButterflyCount(what);	
-		if (blueButterflyCount > 1 || redButterflyCount > 1) {
-			throw new HantoException("You can only place one butterfly!");
-		}
-		
 		board.put(copyWhere, what);
-		
 	}
 
 
 	
-	/**
-	 * check if an coordinate has adjacent around it
-	 * 
-	 * @param A
-	 * 			coordinate of hex 
-	 * @return whether hex has adjacent
-	 */
-	public boolean hasAdjacent(HantoCoordinate A) {
-		Set<HantoCoordinate> keys = board.keySet();
-		for (HantoCoordinate key : keys) {
-			int distance = calculateDistance(A, key);
-			System.out.print(distance);
-			if (distance == 1) {
-				return true;
-			}
-		}
-		return false;
-	}
+
 	
 	
 	
@@ -101,7 +66,24 @@ public class HantoBoard {
 	
 	
 	
+	/**
+	 * @return number of blue butterfly on the board
+	 * 
+	 */
+	public Integer getBlueButterflyCount() {
+		return blueButterflyCount;
+	}
+
 	
+	/**
+	 * @return number of red butterfly on the board
+	 * 
+	 */
+	public Integer getRedButterflyCount() {
+		return redButterflyCount;
+	}
+
+
 	/**
 	 * get the coordinate of piece on the board
 	 *
@@ -116,6 +98,20 @@ public class HantoBoard {
 	
 	
 	/**
+	 * Get the set of coordinate that already been occupied on board
+	 *
+	 * @return Set of HantoCoordinate
+	 */
+	public Set<HantoCoordinate> getOccupiedCoordinate() {
+		return board.keySet();
+	}
+	
+	public boolean isCooedinateOccupied(HantoCoordinate where) {
+		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
+		return board.containsKey(copyWhere);
+	}
+	
+	/**
 	 * get the coordinate of piece on the board
 	 *
 	 * @param playerColor
@@ -127,7 +123,7 @@ public class HantoBoard {
 		for (HantoCoordinate key : keys) {
 			if (board.get(key).getType() == BUTTERFLY && board.get(key).getColor() == playerColor) {
 				HantoCoordinate butterflyCoord= new HantoCoordinateImpl(key.getX(), key.getY());
-				Queue<HantoCoordinate> adjacents = getAdjacent(butterflyCoord);
+				Queue<HantoCoordinate> adjacents = ((HantoCoordinateImpl) butterflyCoord).getAdjacent();
 				for (HantoCoordinate a : adjacents) {
 					if(!board.containsKey(a)) {
 						return false;
@@ -138,6 +134,8 @@ public class HantoBoard {
 		}
 		return false;
 	}
+	
+
 	
 	
 	/**
@@ -154,51 +152,9 @@ public class HantoBoard {
 		return boardString;
 	}
 	
-	/**
-	 * get a list of coordinate that adjacent to startCoor
-	 * @param startCoor
-	 * 		the origin coordinate
-	 * @return string 
-	 */
-	private Queue<HantoCoordinate> getAdjacent(HantoCoordinate startCoor) {
-		Queue<HantoCoordinate> adjacents = new LinkedList<HantoCoordinate>();
-		int x = startCoor.getX();
-		int y = startCoor.getY();
-		
-		adjacents.add(new HantoCoordinateImpl(x,y+1));
-		adjacents.add(new HantoCoordinateImpl(x,y-1));
-		adjacents.add(new HantoCoordinateImpl(x+1,y));
-		adjacents.add(new HantoCoordinateImpl(x-1,y));
-		adjacents.add(new HantoCoordinateImpl(x-1,y+1));
-		adjacents.add(new HantoCoordinateImpl(x+1,y-1));
-		
-		return adjacents;
-	}
+
 	
-	/**
-	 * Calculate the distance between two coordinates
-	 * 
-	 * @param from
-	 * @param to
-	 */
-	private static int calculateDistance(HantoCoordinate from, HantoCoordinate to) {
-		int distance = 0;
-		int dx = Math.abs(to.getX() - from.getX());
-		int dy = Math.abs(to.getY() - from.getY());
-		if (to.getX() == to.getY() && from.getX() == from.getY()) {
-			distance = dx + dy + Math.abs(dx - dy);
-		}
-		else {
-			distance = (dx + dy + Math.abs(dx - dy))/2;
 
-		}
-		System.out.println("dx: " + dx);
-		System.out.println("dy: " + dy);
-
-
-		
-		return distance;
-	}
 	
 	/**
 	 * Update the number of butterfly piece
