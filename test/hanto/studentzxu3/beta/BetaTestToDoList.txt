@@ -16,7 +16,7 @@ X	Red places two butterflies	-> Exception
 X	Blue does not place Butterfly by fourth round -> Exception
 X	Red does not place Butterfly by fourth round -> Exception
 X	Blue place Butterfly at fourth round -> OK
-X	Red does not place Butterfly at fourth round -> OK
+X	Red does place Butterfly at fourth round -> OK
 X	Blue butterfly is surrounded -> RED_WINS
 X	Red butterfly is surrounded -> BLUE_WINS
 X	Red and Blue butterfly are both surrounded -> DRAW

@@ -36,7 +36,7 @@ public class BetaHantoGame implements HantoGame
 	private GameStateUpdaterStrategy stateUpdater;
 	
 	
-	/**
+	/** 
 	 * Default constructor
 	 * @param movesFirst color of the player who moves first.
 	 */

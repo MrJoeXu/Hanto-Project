@@ -12,10 +12,6 @@ package hanto.studentzxu3.common;
 
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.studentzxu3.beta.ButterflyValidator;
-import hanto.studentzxu3.beta.SparrowValidator;
-
-import static hanto.common.HantoPieceType.*;
 
 import hanto.common.HantoException;
 

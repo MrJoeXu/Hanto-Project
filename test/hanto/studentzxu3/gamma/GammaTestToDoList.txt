@@ -1,0 +1,67 @@
+/* ------------- Initial Move --------------- */
+X	Blue places first piece Butterfly at (0,0) -> OK
+X	Blue places first piece Sparrow at (0,0) -> OK
+X	Blue places first piece Butterfly at non(0,0) -> Exception
+X	Blue place not Butterfly or Sparrow -> Exception
+X	Red places first piece at adjacent location of (0,0) -> OK
+X	Red places first piece at non-adjacent location -> Exception
+
+/* ------------- During game, place piece --------------- */
+X	Red place not Butterfly or Sparrow -> Exception
+X	Blue place pieces at an occupied location -> Exception
+X	Red place pieces at an occupied location -> Exception
+X	Blue place pieces adjacent to a Red piece and not adjacent to a Blue piece -> Exception
+X	Blue place pieces adjacent to both Red piece and Blue piece-> Exception
+X	Blue place pieces adjacent to neither Red nor Blue piece-> Exception
+X	Blue place pieces adjacent to a Blue piece and not adjacent to a Red piece -> OK
+X	Red place pieces adjacent to a Blue piece and not adjacent to a Red piece -> Exception
+X	Red place pieces adjacent to both Red piece and Blue piece-> Exception
+X	Red place pieces adjacent to neither Red nor Blue piece-> Exception
+X	Red place pieces adjacent to a Red piece and not adjacent to a Blue piece -> OK
+X	Blue places tried to place second butterfly	-> Exception
+X	Red places tried to place second butterfly	-> Exception
+X	Blue place pieces at an occupied location -> Exception
+X	Red place pieces at an occupied location -> Exception
+X	Blue does not place Butterfly by fourth round -> Exception
+X	Red does not place Butterfly by fourth round -> Exception
+X	Blue place Butterfly at fourth round -> OK
+X	Red place Butterfly at fourth round -> OK
+X	Blue tries to place sixth Sparrow -> Exception
+X	Red tries to place sixth Sparrow -> Exception
+
+/* ------------- During game, move piece --------------- */
+X	Blue tries to move a non-existing piece -> Exception
+X	Red tries to move a non-existing piece -> Exception
+X	Blue tries to move a piece before without placing Blue Butterfly -> Exception
+X	Red tries to move a piece before without placing Red Butterfly -> Exception
+X	Blue tries to move a piece to an occupied location -> Exception
+X	Red tries to move a piece to an occupied location -> Exception
+X	Blue tries to move a piece when the piece is locked -> Exception
+X	Red tries to move a piece when the piece is locked -> Exception
+X	Blue tries to move a piece that does not have two hexes to slide out -> Exception
+X	Red tries to move a piece that does not have two hexes to slide out -> Exception
+X	Blue tries to move a piece that caused disconnected configuration -> Exception
+X	Red tries to move a piece that caused disconnected configuration -> Exception
+X	Blue tries to move a piece 2 hex -> Exception
+X	Red tries to move a piece 2 hex -> Exception
+X	Blue tries to move a Red Piece-> Exception
+X	Red tries to move a Blue Piece-> Exception
+X	Blue tries to move Sparrow to location adjacent to a Red piece-> OK
+X	Red tries to move Sparrow to Sparrow location adjacent to a Blue piece -> OK
+X	Blue tries to move Butterfly to location adjacent to a Blue piece-> OK
+X	Red tries to move Butterfly to Sparrow location adjacent to a Red piece -> OK
+
+
+
+/* ------------- Ending game movement--------------- */
+X	Game has no winner after 20 turn -> DRAW
+X 	Player places piece, blue butterfly surrounded -> RED_WINS
+X 	Player places piece, red Butterfly surrounded -> BLUE_WINS
+X 	Player places piece, both players butterflies surrounded -> DRAW
+X	Blue moves a piece to surrounded Red Butterfly and win -> BLUE_WINS 
+X	Blue moves a piece to surrounded Blue Butterfly and self lose -> RED_WINS 
+X	Red moves a piece to surrounded Blue Butterfly and win -> RED_WINS 
+X	Red moves a piece to surrounded Red Butterfly and self lose -> BLUE_WINS 
+X 	Player walks piece, both players butterflies surrounded -> DRAW
+
+
