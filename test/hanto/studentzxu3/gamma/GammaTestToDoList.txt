@@ -1,10 +1,11 @@
 /* ------------- Initial Move --------------- */
-X	Blue places first piece Butterfly at (0,0) -> OK
-X	Blue places first piece Sparrow at (0,0) -> OK
-X	Blue places first piece Butterfly at non(0,0) -> Exception
-X	Blue place not Butterfly or Sparrow -> Exception
-X	Red places first piece at adjacent location of (0,0) -> OK
-X	Red places first piece at non-adjacent location -> Exception
+-	Blue places first piece Butterfly at (0,0) -> OK
+-	Blue places first piece Sparrow at (0,0) -> OK
+-	Blue places first piece Butterfly at non(0,0) -> Exception
+-	Blue place not Butterfly or Sparrow -> Exception
+-	Red places first piece at adjacent location of (0,0) -> OK
+-	Red places first piece (Butterfly) at non-adjacent location -> Exception
+-	Red places first piece (Sparrow) at non-adjacent location -> Exception
 
 /* ------------- During game, place piece --------------- */
 X	Red place not Butterfly or Sparrow -> Exception

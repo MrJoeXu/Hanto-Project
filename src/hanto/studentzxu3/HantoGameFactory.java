@@ -12,6 +12,7 @@ package hanto.studentzxu3;
 
 import hanto.common.*;
 import hanto.studentzxu3.beta.BetaHantoGame;
+import hanto.studentzxu3.gamma.GammaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -60,11 +61,11 @@ public class HantoGameFactory
 	public  HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
 		HantoGame game = null;
 		switch (gameId) {
-			case ALPHA_HANTO:
-				//game = new AlphaHantoGame();
-				break;
 			case BETA_HANTO:
 				game = new BetaHantoGame(movesFirst);
+				break;
+			case GAMMA_HANTO:
+				game = new GammaHantoGame(movesFirst);
 				break;
 		default:
 			break;
