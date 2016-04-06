@@ -127,14 +127,70 @@ public class GammaHantoMasterTest {
 		game.makeMove(BUTTERFLY, null, makeCoordinate(1, 1));
 	}
 	
-	// 6
+	// 7
 	@Test(expected = HantoException.class)	
 	public void validFirstMoveNonAdjacentHexSecondSparrowMove() throws HantoException
 	{
 		game.makeMove(SPARROW,  null, makeCoordinate(0, 0));
 		game.makeMove(SPARROW, null, makeCoordinate(-1, -1));
 	}
-
+	
+	// 8 
+	@Test(expected = HantoException.class)	
+	public void blueTriesToPlacePieceOnOccupiedHex() throws HantoException
+	{
+		game.makeMove(SPARROW, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+	}
+	
+	// 9
+	@Test(expected = HantoException.class)
+	public void redTriesToPlacePieceOnOccupiedHex() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(0, -1));
+		game.makeMove(SPARROW, 	null, makeCoordinate(0, -1));
+	}
+	
+	// 10
+	@Test(expected = HantoException.class)
+	public void blueTriesToPlacePieceAdjacentToRedNotBlue() throws HantoException
+	{
+		game.makeMove(SPARROW, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(-1, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(-2, 0));
+	}
+	
+	// 11
+	@Test(expected = HantoException.class)
+	public void blueTriesToPlacePieceAdjacentToBothRedAndBlue() throws HantoException 
+	{
+		game.makeMove(SPARROW, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(SPARROW, null, makeCoordinate(1, 0));
+	}
+	
+	// 12
+	@Test(expected = HantoException.class)
+	public void blueTriesToPlacePieceNotAdjacentToRedOrBlue() throws HantoException 
+	{
+		game.makeMove(SPARROW, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(-2, 1));
+	}
+	
+	// 13
+	// Blue place pieces adjacent to a Blue piece and not adjacent to a Red piece
+	@Test
+	public void blueTriesToPlacePieceAdjacentBlueNotRed() throws HantoException 
+	{
+		game.makeMove(SPARROW, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(-1, 1));
+		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(0, -1));
+		assertEquals(OK, mr);
+	}
 	
 	
 	

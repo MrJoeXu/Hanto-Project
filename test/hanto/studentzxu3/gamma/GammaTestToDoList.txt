@@ -8,12 +8,11 @@
 -	Red places first piece (Sparrow) at non-adjacent location -> Exception
 
 /* ------------- During game, place piece --------------- */
-X	Red place not Butterfly or Sparrow -> Exception
-X	Blue place pieces at an occupied location -> Exception
-X	Red place pieces at an occupied location -> Exception
-X	Blue place pieces adjacent to a Red piece and not adjacent to a Blue piece -> Exception
-X	Blue place pieces adjacent to both Red piece and Blue piece-> Exception
-X	Blue place pieces adjacent to neither Red nor Blue piece-> Exception
+-	Blue place pieces at an occupied location -> Exception
+-	Red place pieces at an occupied location -> Exception
+-	Blue place pieces adjacent to a Red piece and not adjacent to a Blue piece -> Exception
+-	Blue place pieces adjacent to both Red piece and Blue piece-> Exception
+-	Blue place pieces adjacent to neither Red nor Blue piece-> Exception
 X	Blue place pieces adjacent to a Blue piece and not adjacent to a Red piece -> OK
 X	Red place pieces adjacent to a Blue piece and not adjacent to a Red piece -> Exception
 X	Red place pieces adjacent to both Red piece and Blue piece-> Exception

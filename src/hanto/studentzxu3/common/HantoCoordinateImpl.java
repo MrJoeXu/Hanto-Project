@@ -133,11 +133,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 			distance = (dx + dy + Math.abs(dx - dy))/2;
 
 		}
-		System.out.println("dx: " + dx);
-		System.out.println("dy: " + dy);
-		System.out.println("1st distance: " + distance);
-
-
+		
 		return distance;
 	}
 	

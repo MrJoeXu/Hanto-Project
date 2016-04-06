@@ -7,6 +7,7 @@ import static hanto.common.HantoPieceType.BUTTERFLY;
 import static hanto.common.HantoPlayerColor.*;
 import static hanto.common.HantoPlayerColor.RED;
 
+import java.util.Queue;
 import java.util.Set;
 
 import hanto.common.HantoCoordinate;
@@ -54,37 +55,75 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 	 */
 	private void checkValidMove(HantoCoordinate from, HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
 		checkHasAdjacent(to, board);
+		checkEmptyDestination(to, board);
+		checkAdjacentColor(to, board, pieceColor);
 		isValidMove = true;
 		
 	}
 	
 	/**
-	 * check if an coordinate has adjacent around it
-	 * 
-	 * @param A
-	 * 			coordinate of hex 
-	 * @return whether hex has adjacent
+	 * check if an coordinate has adjacent around it. 
+	 * @param to
+	 * @param board
+	 * @param color
+	 * @throws HantoException
 	 */
 	private void checkHasAdjacent(final HantoCoordinateImpl to, final HantoBoard board) throws HantoException{
 		boolean hasAdjacent = false;
 		Set<HantoCoordinate> targets = board.getOccupiedCoordinates();
 
-		if (board.getNumMoves() == 1){
+		if (board.getNumMoves() == 1) {
 			if (to.getX() != 0 || to.getY() != 0) {
 				throw new HantoException("You can only place your piece at (0,0) for your first move!");
 			}
-		}
+		}	
 		else {
 			for (HantoCoordinate coord : targets) {
 				int distance = to.getDistance(coord);
-				System.out.println(distance);
 				if (distance == 1) {
 					hasAdjacent = true;
 				}
-			}
+			}		
 			if (!hasAdjacent) {
 				throw new HantoException("You have to place your piece adjacent to existing pieces!");
 			}
+		}
+	}
+	
+	
+	/**
+	 * Check whether piece is only adjacent to piece that has same color
+	 * @param to
+	 * @param board
+	 * @param color
+	 * @throws HantoException
+	 */
+	private void checkAdjacentColor(final HantoCoordinateImpl to, final HantoBoard board, final HantoPlayerColor color) throws HantoException {
+		boolean invalidAdjacentColor = false;
+		Queue<HantoCoordinate> adjacents = to.getAdjacent();
+		
+		if (board.getNumMoves() > 2) {
+			for (HantoCoordinate coord : adjacents) {
+				if (board.isCooedinateOccupied(coord)) {
+					invalidAdjacentColor = (board.getPiece(coord).getColor() != color);
+				}
+			}
+			if (invalidAdjacentColor) {
+				throw new HantoException("You have to place your piece adjacent to existing pieces with same color!");
+			}
+		}
+	}
+	
+	
+	/**
+	 * Check whether the destination of move is already occupied or not
+	 * @param 
+	 * 
+	 * @return exception
+	 */
+	private void checkEmptyDestination(final HantoCoordinateImpl to, final HantoBoard board) throws HantoException{
+		if (board.isCooedinateOccupied(to)) {
+			throw new HantoException("Uable to place piece at this location!");
 		}
 	}
 }
