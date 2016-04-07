@@ -14,6 +14,7 @@ package hanto.studentzxu3.common;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 import hanto.common.HantoCoordinate;
 
@@ -135,6 +136,22 @@ public class HantoCoordinateImpl implements HantoCoordinate
 		}
 		
 		return distance;
+	}
+
+	/**
+	 * check whether this coordinate has any neighbors in the passed in list
+	 * @param list list to check
+	 * @return boolean
+	 */
+	public boolean hasAdjacencyInList(Set<HantoCoordinate> list) {
+		Queue<HantoCoordinate> myAdjacets = this.getAdjacent();
+
+		for (HantoCoordinate i: list) {
+			if (myAdjacets.contains(i)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

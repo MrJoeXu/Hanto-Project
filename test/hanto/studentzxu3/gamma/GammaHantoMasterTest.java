@@ -416,10 +416,8 @@ public class GammaHantoMasterTest {
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, makeCoordinate(1, -1));
-		game.makeMove(BUTTERFLY, makeCoordinate(0, 0), makeCoordinate(-1, 1)); 
+		game.makeMove(BUTTERFLY, makeCoordinate(0, 0), makeCoordinate(-1, 1));
 	}
-	
-	
 	
 	
 	

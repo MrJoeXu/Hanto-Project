@@ -67,6 +67,7 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 			checkSourcePieceBelongToPlayer(from, pieceColor, board);
 			checkMultipleHexOpening(from, to, board);
 			checkWalkOnlyOneHex(from, to);
+			checkContiguity(from, to, board);
 		}
 
 		isValidMove = true;	
@@ -190,11 +191,21 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 			throw new HantoException("You can only walk one hex during each move!!!!");
 		}
 	}
-	
-	private void checkContiguity(final HantoCoordinate from, final HantoBoard board) throws HantoException {
-		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
-		Queue<HantoCoordinate> srcAdjacents = src.getAdjacent();
-		
-		srcAdjacents.
+
+	private void checkContiguity(final HantoCoordinate from, final HantoCoordinateImpl to, final HantoBoard board) throws HantoException {
+		Set<HantoCoordinate> allHexList = board.getOccupiedCoordinates();
+		//HantoCoordinate toTemp = new HantoCoordinate(to.getX(), to.getY())
+		allHexList.remove(from);
+		//allHexList.add(toTemp);
+
+		for (HantoCoordinate hex : allHexList) {
+			System.out.println("hex != from");
+			HantoCoordinateImpl copyHex = new HantoCoordinateImpl(hex);
+			if (!copyHex.hasAdjacencyInList(allHexList) && copyHex != from) {
+				System.out.println("Hex not have AdjacencyInList");
+				throw new HantoException("You have to keep the contiguity of the piece!");
+			}
+		}
+		System.out.println("\n");
 	}
 }

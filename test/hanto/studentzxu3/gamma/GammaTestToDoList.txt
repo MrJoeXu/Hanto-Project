@@ -56,4 +56,5 @@ X	Red moves a piece to surrounded Blue Butterfly and win -> RED_WINS
 X	Red moves a piece to surrounded Red Butterfly and self lose -> BLUE_WINS 
 X 	Player walks piece, both players butterflies surrounded -> DRAW
 
+pieceType not matching
 
