@@ -3,7 +3,7 @@
  */
 package hanto.studentzxu3.gamma;
 
-import static hanto.common.HantoPieceType.BUTTERFLY;
+import static hanto.common.HantoPieceType.*;
 import static hanto.common.HantoPlayerColor.*;
 import static hanto.common.HantoPlayerColor.RED;
 
@@ -56,7 +56,18 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 	private void checkValidMove(HantoCoordinate from, HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
 		checkHasAdjacent(to, board);
 		checkEmptyDestination(to, board);
-		checkAdjacentColor(to, board, pieceColor);
+		checkButterflyMovesByFourthRound(SPARROW, pieceColor, board);
+		if (from == null) {
+			checkAdjacentColor(to, board, pieceColor);
+		}
+		else {
+			checkSourcePieceExist(from, board);
+			checkSourcePieceBelongToPlayer(from, pieceColor, board);
+			checkHasButterflyBeforeWalk(pieceColor, board);
+			checkMultipleHexOpening(from, to, board);
+			checkWalkOnlyOneHex(from, to);
+		}
+
 		isValidMove = true;
 		
 	}
@@ -92,14 +103,14 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 	
 	
 	/**
-	 * Check whether piece is only adjacent to piece that has same color
+	 * Check whether piece is only adjacent to piece that has same color with exception of when moving a piece
 	 * @param to
 	 * @param board
 	 * @param color
 	 * @throws HantoException
 	 */
 	private void checkAdjacentColor(final HantoCoordinateImpl to, final HantoBoard board, final HantoPlayerColor color) throws HantoException {
-		boolean invalidAdjacentColor = false;
+		boolean invalidAdjacentColor = true;
 		Queue<HantoCoordinate> adjacents = to.getAdjacent();
 		
 		if (board.getNumMoves() > 2) {
@@ -111,6 +122,7 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 			if (invalidAdjacentColor) {
 				throw new HantoException("You have to place your piece adjacent to existing pieces with same color!");
 			}
+			
 		}
 	}
 	
@@ -124,6 +136,61 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 	private void checkEmptyDestination(final HantoCoordinateImpl to, final HantoBoard board) throws HantoException{
 		if (board.isCooedinateOccupied(to)) {
 			throw new HantoException("Uable to place piece at this location!");
+		}
+	}
+	
+	/**
+	 * Check whether Butterfly piece has been placed yet by fourth round
+	 * 
+	 * @return boolean 
+	 */
+	private void checkButterflyMovesByFourthRound(HantoPieceType pieceType, HantoPlayerColor pieceColor, final HantoBoard board) throws HantoException{
+		if (board.getNumMoves() > 6) {
+			if (!board.hasButterfly(pieceColor)) {
+				throw new HantoException("You have to place Butterfly by fourth round!");
+			}
+		}
+	}
+	
+	private void checkSourcePieceExist(final HantoCoordinate from, final HantoBoard board) throws HantoException {
+		if (!board.isCooedinateOccupied(from)) {
+			throw new HantoException("You are trying to move a piece that doesn't exsit!");
+		}
+	}
+	
+	private void checkSourcePieceBelongToPlayer(final HantoCoordinate from, final HantoPlayerColor playerColor, final HantoBoard board) throws HantoException {
+		HantoPlayerColor pieceColor = board.getPiece(from).getColor();
+		if (pieceColor != playerColor) {
+			throw new HantoException("You cannot move other player's piece!!!");
+		}
+	}
+	
+	private void checkHasButterflyBeforeWalk(HantoPlayerColor pieceColor, final HantoBoard board) throws HantoException {
+		if (!board.hasButterfly(pieceColor)) {
+			throw new HantoException("You have to place butterfly piece before make a walk movement");
+		}
+	}
+	
+	private void checkMultipleHexOpening(final HantoCoordinate from, final HantoCoordinateImpl to, final HantoBoard board) throws HantoException {
+		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
+		int openHexCount = 1;
+		Queue<HantoCoordinate> srcAdjacents = src.getAdjacent();
+		Queue<HantoCoordinate> destinationAdjacents = to.getAdjacent();
+		
+		for (HantoCoordinate p : srcAdjacents) {
+			if (destinationAdjacents.contains(p) && !board.isCooedinateOccupied(p)) openHexCount++;
+		}
+		
+		if (openHexCount < 2) {
+			throw new HantoException("You cannot Move Through Single Opening Hex");
+		}
+	}
+	
+	
+	private void checkWalkOnlyOneHex(final HantoCoordinate from, final HantoCoordinateImpl to) throws HantoException {
+		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
+		if (src.getDistance(to) != 1) {
+			throw new HantoException("You can only walk one hex during each move!!!!");
 		}
 	}
 }

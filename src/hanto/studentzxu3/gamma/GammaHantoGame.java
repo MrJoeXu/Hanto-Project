@@ -39,7 +39,6 @@ public class GammaHantoGame implements HantoGame{
 		colorFirstMoves =  movesFirst;
 		board = new HantoBoard();
 		pieceFactory = new GammaPieceFactory();
-		
 	}
 
 	@Override
@@ -52,7 +51,6 @@ public class GammaHantoGame implements HantoGame{
 		if (newPiece.canMove(from, destination, pieceColor, board)) {
 			board.addNewPiece(destination, newPiece);		
 		}
-
 		return OK;
 	}
 
