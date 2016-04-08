@@ -11,5 +11,10 @@ import hanto.common.MoveResult;
  *
  */
 public interface GameStateUpdaterStrategy {
-	public MoveResult updateGameState(HantoBoard board);
+	/**
+	 * Updater for the result of the game
+	 * @param board
+	 * @return moveResult
+	 */
+	MoveResult updateGameState(HantoBoard board);
 }

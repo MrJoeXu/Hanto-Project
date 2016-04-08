@@ -14,7 +14,6 @@ package hanto.studentzxu3.common;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 import hanto.common.HantoCoordinate;
 
@@ -99,8 +98,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	
 	/**
 	 * get a list of coordinate that adjacent to this coordinate
-	 * @param startCoor
-	 * 		the origin coordinate
+	 * 
 	 * @return adjacent queue of coordinate
 	 */
 	public Queue<HantoCoordinate> getAdjacent() {
@@ -121,7 +119,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	 * Calculate the distance between this coordinate and targeted coordinate
 	 * 
 	 * @param to target coordinate to compute distance
-	 * 
+	 * @return distance
 	 */
 	public int getDistance(HantoCoordinate to) {
 		int distance = 0;

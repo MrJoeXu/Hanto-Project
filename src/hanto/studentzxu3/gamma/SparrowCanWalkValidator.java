@@ -232,6 +232,12 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 		if (!validButterflyNum)  throw new HantoException("You can only place 6 sparrow!");
 	}
 	
+	/**
+	 * @param from
+	 * @param pieceType
+	 * @param board
+	 * @throws HantoException
+	 */
 	public void checkPieceTypeMatch(final HantoCoordinate from, final HantoPieceType pieceType, final HantoBoard board) throws HantoException {
 		if (board.getPiece(from).getType() != pieceType) {
 			throw new HantoException("You have to match the piece type of actual piece!");

@@ -23,8 +23,10 @@ public interface HantoPieceFactory {
 	
 	/**
 	 * Factory method that returns the appropriately HantoPieceImpl with its validator
-	 * @param type of desired piece
-	 * @param color of desired piece
-	 */
-	public  HantoPieceImpl makeHantoPiece(HantoPieceType pieceType, HantoPlayerColor pieceColor) throws HantoException;
+	 * @param pieceType
+	 * @param pieceColor
+	 * @return appropiate piece with corret validator as requested
+	 * @throws HantoException
+	*/
+	 HantoPieceImpl makeHantoPiece(HantoPieceType pieceType, HantoPlayerColor pieceColor) throws HantoException;
 }

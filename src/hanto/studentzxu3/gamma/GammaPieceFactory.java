@@ -18,11 +18,6 @@ import static hanto.common.HantoPieceType.*;
  */
 public class GammaPieceFactory implements HantoPieceFactory {
 
-	/**
-	 * 
-	 */
-	public GammaPieceFactory() {};
-
 	@Override
 	public HantoPieceImpl makeHantoPiece(HantoPieceType pieceType, HantoPlayerColor pieceColor) throws HantoException {
 		HantoPieceImpl piece = null;

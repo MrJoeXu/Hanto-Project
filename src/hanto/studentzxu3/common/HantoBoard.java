@@ -49,6 +49,7 @@ public class HantoBoard {
 		updateButterflyCount(what);	
 		updateSparrowCount(what);
 		board.put(copyWhere, what);
+			
 		numMoves++;
 	}
 
@@ -100,7 +101,7 @@ public class HantoBoard {
 	
 	
 	/**
-	 *
+	 * @param where
 	 * @return whether the coordinate indicated has been occupied
 	 */
 	public boolean isCooedinateOccupied(HantoCoordinate where) {
@@ -124,6 +125,20 @@ public class HantoBoard {
 		return boardString;
 	}
 	
+	/**
+	 * @param from
+	 * @param to
+	 */
+	public void updateAfterWalk(HantoCoordinate from, HantoCoordinate to) {
+		if (from !=null) {
+			HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(to);
+			HantoCoordinateImpl copyFrom = new HantoCoordinateImpl(from);
+
+			HantoPiece movedPiece = board.get(copyFrom);
+			board.put(copyWhere, movedPiece);
+			board.remove(copyFrom);
+		}
+	}
 		
 	
 	

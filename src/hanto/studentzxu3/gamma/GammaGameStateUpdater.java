@@ -21,11 +21,7 @@ import hanto.studentzxu3.common.HantoBoard;
  */
 public class GammaGameStateUpdater implements GameStateUpdaterStrategy {
 
-	/**
-	 * @return the state of the game
-	 */
-	public GammaGameStateUpdater() {
-	}
+	
 
 	@Override
 	public MoveResult updateGameState(HantoBoard board) {

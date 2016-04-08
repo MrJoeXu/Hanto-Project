@@ -26,6 +26,7 @@ public class HantoPieceImpl implements HantoPiece
 	 * Deafault constructor
 	 * @param color the piece color
 	 * @param type the piece type
+	 * @param validator validator for moves
 	 */
 	public HantoPieceImpl(HantoPlayerColor color, HantoPieceType type, MoveValidatorStrategy validator)
 	{
@@ -51,6 +52,14 @@ public class HantoPieceImpl implements HantoPiece
 		return type;
 	}
 	
+	/**
+	 * @param from
+	 * @param to
+	 * @param pieceColor
+	 * @param board
+	 * @return boolean whether valid for move or not
+	 * @throws HantoException
+	 */
 	public boolean canMove(final HantoCoordinate from, final HantoCoordinate to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException 
 	{
 		return validator.canMove(from, to, color, board);

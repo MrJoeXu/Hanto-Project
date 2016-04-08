@@ -14,11 +14,8 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.studentzxu3.beta.BetaGameStateUpdater;
-import hanto.studentzxu3.beta.BetaPieceFactory;
 import hanto.studentzxu3.common.GameStateUpdaterStrategy;
 import hanto.studentzxu3.common.HantoBoard;
-import hanto.studentzxu3.common.HantoCoordinateImpl;
 import hanto.studentzxu3.common.HantoPieceFactory;
 import hanto.studentzxu3.common.HantoPieceImpl;
 
@@ -55,8 +52,9 @@ public class GammaHantoGame implements HantoGame{
 		HantoPieceImpl newPiece = pieceFactory.makeHantoPiece(pieceType, pieceColor);
 
 		if (newPiece.canMove(from, to, pieceColor, board)) {
-			board.addNewPiece(to, newPiece);		
+			board.addNewPiece(to, newPiece);
 		}
+		board.updateAfterWalk(from, to);
 		MoveResult result = stateUpdater.updateGameState(board);
 		if (result != OK) gameOver=true; 
 		return result;

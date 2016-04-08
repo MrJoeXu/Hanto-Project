@@ -17,7 +17,6 @@ import hanto.common.HantoGameID;
 import hanto.common.HantoPiece;
 import hanto.common.MoveResult;
 import hanto.studentzxu3.HantoGameFactory;
-import hanto.studentzxu3.gamma.GammaHantoMasterTest.TestHantoCoordinate;
 
 /**
  * Test cases for Gamma Hanto.
@@ -538,6 +537,54 @@ public class GammaHantoMasterTest {
     	game.makeMove(SPARROW, null, makeCoordinate(1, 0));
     	game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
     	game.makeMove(BUTTERFLY, makeCoordinate(1, 0), makeCoordinate(0, 1));
+    }
+    
+    //43
+    @Test
+    public void reachFortyTurn() throws HantoException
+    {
+    	game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+        game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
+        game.makeMove(SPARROW, null, makeCoordinate(-1, 1));
+        game.makeMove(SPARROW, null, makeCoordinate(1, 1));
+        game.makeMove(SPARROW, null, makeCoordinate(0, -1));
+        game.makeMove(SPARROW, null, makeCoordinate(2, -1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, null, makeCoordinate(2, 0));//8
+        
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        game.makeMove(SPARROW, makeCoordinate(1, -1), makeCoordinate(0, -1));
+        game.makeMove(SPARROW, makeCoordinate(2, 0), makeCoordinate(2, 1));
+        game.makeMove(SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
+        MoveResult mr = game.makeMove(SPARROW, makeCoordinate(2, 1), makeCoordinate(2, 0));
+        assertEquals(DRAW, mr);
     }
 	
 	

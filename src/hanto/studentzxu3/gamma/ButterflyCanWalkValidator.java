@@ -214,6 +214,12 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 		}
 	}
 	
+	/**
+	 * @param from
+	 * @param pieceType
+	 * @param board
+	 * @throws HantoException
+	 */
 	public void checkPieceTypeMatch(final HantoCoordinate from, final HantoPieceType pieceType, final HantoBoard board) throws HantoException {
 		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
 
