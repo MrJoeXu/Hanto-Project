@@ -143,7 +143,7 @@ public class HantoCoordinateImpl implements HantoCoordinate
 	 * @param list list to check
 	 * @return boolean
 	 */
-	public boolean hasAdjacencyInList(Set<HantoCoordinate> list) {
+	public boolean hasAdjacencyInList(Queue<HantoCoordinateImpl> list) {
 		Queue<HantoCoordinate> myAdjacets = this.getAdjacent();
 
 		for (HantoCoordinate i: list) {

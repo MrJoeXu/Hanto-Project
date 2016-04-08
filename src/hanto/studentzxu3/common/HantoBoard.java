@@ -14,6 +14,7 @@ import static hanto.common.HantoPieceType.*;
 import static hanto.common.HantoPlayerColor.*;
 
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -175,6 +176,21 @@ public class HantoBoard {
 	 */
 	public Set<HantoCoordinate> getOccupiedCoordinates() {
 		return board.keySet();
+	}	
+	
+	/**
+	 * Get the set of coordinate implementations that already been occupied on board
+	 *
+	 * @return Set of HantoCoordinateImpl
+	 */
+	public Queue<HantoCoordinateImpl> getOccupiedCoordinatesImpl() {
+		
+		Queue<HantoCoordinateImpl> newSet = new LinkedList<HantoCoordinateImpl>();
+		for (HantoCoordinate i : board.keySet()) {
+			HantoCoordinateImpl newi = new HantoCoordinateImpl(i);
+			newSet.add(newi);
+		}
+		return newSet;
 	}	
 	
 	

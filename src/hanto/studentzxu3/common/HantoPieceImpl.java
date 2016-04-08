@@ -51,7 +51,7 @@ public class HantoPieceImpl implements HantoPiece
 		return type;
 	}
 	
-	public boolean canMove(final HantoCoordinate from, final HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException 
+	public boolean canMove(final HantoCoordinate from, final HantoCoordinate to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException 
 	{
 		return validator.canMove(from, to, color, board);
 	}

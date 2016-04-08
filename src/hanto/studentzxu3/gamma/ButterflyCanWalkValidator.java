@@ -33,7 +33,7 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 	}
 	
 	@Override
-	public boolean canMove(HantoCoordinate from, HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
+	public boolean canMove(HantoCoordinate from, HantoCoordinate to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
 		try {
 			checkValidMove(from, to, pieceColor, board);
 		} catch (HantoException e) {
@@ -54,7 +54,7 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 	 * @throws HantoException
 	 *
 	 */
-	private void checkValidMove(HantoCoordinate from, HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
+	private void checkValidMove(HantoCoordinate from, HantoCoordinate to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
 		checkHasAdjacent(to, board);
 		checkEmptyDestination(to, board);
 		if (from == null) {
@@ -80,7 +80,8 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 	 * @param color
 	 * @throws HantoException
 	 */
-	private void checkHasAdjacent(final HantoCoordinateImpl to, final HantoBoard board) throws HantoException{
+	private void checkHasAdjacent(final HantoCoordinate dest, final HantoBoard board) throws HantoException{
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
 		boolean hasAdjacent = false;
 		Set<HantoCoordinate> targets = board.getOccupiedCoordinates();
 
@@ -110,7 +111,8 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 	 * @param color
 	 * @throws HantoException
 	 */
-	private void checkAdjacentColor(final HantoCoordinateImpl to, final HantoBoard board, final HantoPlayerColor color) throws HantoException {
+	private void checkAdjacentColor(final HantoCoordinate dest, final HantoBoard board, final HantoPlayerColor color) throws HantoException {
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
 		boolean invalidAdjacentColor = true;
 		Queue<HantoCoordinate> adjacents = to.getAdjacent();
 		
@@ -132,7 +134,8 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 	 * @param board
 	 * @throws HantoException
 	 */
-	private void checkEmptyDestination(final HantoCoordinateImpl to, final HantoBoard board) throws HantoException{
+	private void checkEmptyDestination(final HantoCoordinate dest, final HantoBoard board) throws HantoException{
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
 		if (board.isCooedinateOccupied(to)) {
 			throw new HantoException("Uable to place piece at this location!");
 		}
@@ -170,7 +173,8 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 		}
 	}
 	
-	private void checkMultipleHexOpening(final HantoCoordinate from, final HantoCoordinateImpl to, final HantoBoard board) throws HantoException {
+	private void checkMultipleHexOpening(final HantoCoordinate from, final HantoCoordinate dest, final HantoBoard board) throws HantoException {
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
 		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
 		int openHexCount = 1;
 		Queue<HantoCoordinate> srcAdjacents = src.getAdjacent();
@@ -185,27 +189,28 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 		}
 	}
 	
-	private void checkWalkOnlyOneHex(final HantoCoordinate from, final HantoCoordinateImpl to) throws HantoException {
+	private void checkWalkOnlyOneHex(final HantoCoordinate from, final HantoCoordinate dest) throws HantoException {
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
 		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
 		if (src.getDistance(to) != 1) {
 			throw new HantoException("You can only walk one hex during each move!!!!");
 		}
 	}
 
-	private void checkContiguity(final HantoCoordinate from, final HantoCoordinateImpl to, final HantoBoard board) throws HantoException {
-		Set<HantoCoordinate> allHexList = board.getOccupiedCoordinates();
-		//HantoCoordinate toTemp = new HantoCoordinate(to.getX(), to.getY())
-		allHexList.remove(from);
-		//allHexList.add(toTemp);
+	private void checkContiguity(final HantoCoordinate from, final HantoCoordinate dest, final HantoBoard board) throws HantoException {
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
+		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
+		
+		Queue<HantoCoordinateImpl> allHexList = board.getOccupiedCoordinatesImpl();
+		allHexList.remove(src);
+		allHexList.add(to);
 
 		for (HantoCoordinate hex : allHexList) {
-			System.out.println("hex != from");
 			HantoCoordinateImpl copyHex = new HantoCoordinateImpl(hex);
-			if (!copyHex.hasAdjacencyInList(allHexList) && copyHex != from) {
-				System.out.println("Hex not have AdjacencyInList");
+			if (!copyHex.hasAdjacencyInList(allHexList)) {
 				throw new HantoException("You have to keep the contiguity of the piece!");
 			}
 		}
-		System.out.println("\n");
 	}
+	
 }

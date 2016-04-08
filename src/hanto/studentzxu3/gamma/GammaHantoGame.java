@@ -43,13 +43,12 @@ public class GammaHantoGame implements HantoGame{
 
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from, HantoCoordinate to) throws HantoException {
-		final HantoCoordinateImpl destination = new HantoCoordinateImpl(to);
 		HantoPlayerColor pieceColor = updatePieceColor();
 		
 		HantoPieceImpl newPiece = pieceFactory.makeHantoPiece(pieceType, pieceColor);
 
-		if (newPiece.canMove(from, destination, pieceColor, board)) {
-			board.addNewPiece(destination, newPiece);		
+		if (newPiece.canMove(from, to, pieceColor, board)) {
+			board.addNewPiece(to, newPiece);		
 		}
 		return OK;
 	}

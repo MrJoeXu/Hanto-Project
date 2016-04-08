@@ -412,11 +412,20 @@ public class GammaHantoMasterTest {
 	}
 	
 	@Test(expected = HantoException.class)	
-	public void playerTriesToMovePieceViolatingContiguity() throws HantoException
+	public void playerTriesToButterflyPieceViolatingContiguity() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, makeCoordinate(1, -1));
 		game.makeMove(BUTTERFLY, makeCoordinate(0, 0), makeCoordinate(-1, 1));
+	}
+	
+	@Test(expected = HantoException.class)	
+	public void playerTriesToMoveSparrowViolatingContiguity() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(1, -1));
+		game.makeMove(SPARROW, makeCoordinate(1, 0), makeCoordinate(1, 1));
 	}
 	
 	

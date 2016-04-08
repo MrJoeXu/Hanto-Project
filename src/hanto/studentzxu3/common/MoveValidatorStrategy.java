@@ -18,5 +18,5 @@ public interface MoveValidatorStrategy {
 	 * @return whether valid to make the move
 	 *
 	 */
-	public boolean canMove(HantoCoordinate from, HantoCoordinateImpl to, HantoPlayerColor color, HantoBoard board) throws HantoException;
+	public boolean canMove(HantoCoordinate from, HantoCoordinate to, HantoPlayerColor color, HantoBoard board) throws HantoException;
 }

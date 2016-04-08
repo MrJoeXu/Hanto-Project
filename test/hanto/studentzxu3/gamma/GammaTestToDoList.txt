@@ -40,10 +40,10 @@ X	Red tries to place sixth Sparrow -> Exception
 /* ------------- During game, move piece, check to --------------- */
 -	Blue tries to move a piece 2 hex -> Exception
 -	Red tries to move a piece 2 hex -> Exception
+-	Blue tries to move a piece that caused disconnected configuration -> Exception
+-	Red tries to move a piece that caused disconnected configuration -> Exception
 X	Blue tries to move a piece to an occupied location -> Exception
 X	Red tries to move a piece to an occupied location -> Exception
-X	Blue tries to move a piece that caused disconnected configuration -> Exception
-X	Red tries to move a piece that caused disconnected configuration -> Exception
 
 /* ------------- Ending game movement--------------- */
 X	Game has no winner after 20 turn -> DRAW

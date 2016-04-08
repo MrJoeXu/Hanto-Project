@@ -32,7 +32,7 @@ public class ButterflyValidator implements MoveValidatorStrategy {
 	}
 	
 	@Override
-	public boolean canMove(HantoCoordinate from, HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
+	public boolean canMove(HantoCoordinate from, HantoCoordinate to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
 		try {
 			checkValidMove(from, to, pieceColor, board);
 		} catch (HantoException e) {
@@ -52,7 +52,7 @@ public class ButterflyValidator implements MoveValidatorStrategy {
 	 * @param pieceColor
 	 * 			Color of the piece
 	 */
-	private void checkValidMove(HantoCoordinate from, HantoCoordinateImpl to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
+	private void checkValidMove(HantoCoordinate from, HantoCoordinate to, HantoPlayerColor pieceColor, HantoBoard board) throws HantoException {
 		checkValidMovementType(from);
 		checkHasAdjacent(to, board);
 		checkEmptyDestination(to, board);
@@ -81,8 +81,10 @@ public class ButterflyValidator implements MoveValidatorStrategy {
 	 * 			coordinate of hex 
 	 * @return whether hex has adjacent
 	 */
-	private void checkHasAdjacent(final HantoCoordinateImpl to, final HantoBoard board) throws HantoException{
+	private void checkHasAdjacent(final HantoCoordinate dest, final HantoBoard board) throws HantoException{
 		boolean hasAdjacent = false;
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
+
 		Set<HantoCoordinate> targets = board.getOccupiedCoordinates();
 		if (board.getNumMoves() == 1){
 			if (to.getX() != 0 || to.getY() != 0) {
@@ -112,7 +114,8 @@ public class ButterflyValidator implements MoveValidatorStrategy {
 	 * 
 	 * @return exception
 	 */
-	private void checkEmptyDestination(final HantoCoordinateImpl to, final HantoBoard board) throws HantoException{
+	private void checkEmptyDestination(final HantoCoordinate dest, final HantoBoard board) throws HantoException{
+		HantoCoordinateImpl to = new HantoCoordinateImpl(dest);
 		if (board.isCooedinateOccupied(to)) {
 			throw new HantoException("Uable to place piece at this location!");
 		}
