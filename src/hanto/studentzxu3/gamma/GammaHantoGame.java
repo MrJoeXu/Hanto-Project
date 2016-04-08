@@ -16,6 +16,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.studentzxu3.beta.BetaGameStateUpdater;
 import hanto.studentzxu3.beta.BetaPieceFactory;
+import hanto.studentzxu3.common.GameStateUpdaterStrategy;
 import hanto.studentzxu3.common.HantoBoard;
 import hanto.studentzxu3.common.HantoCoordinateImpl;
 import hanto.studentzxu3.common.HantoPieceFactory;
@@ -30,6 +31,9 @@ public class GammaHantoGame implements HantoGame{
 	private HantoPlayerColor colorFirstMoves;
 	private HantoBoard board;
 	private HantoPieceFactory pieceFactory;
+	private GameStateUpdaterStrategy stateUpdater;
+	private boolean gameOver;
+
 	/** 
 	 * Default constructor
 	 * @param movesFirst color of the player who moves first.
@@ -37,8 +41,11 @@ public class GammaHantoGame implements HantoGame{
 	public GammaHantoGame(HantoPlayerColor movesFirst)
 	{
 		colorFirstMoves =  movesFirst;
+		gameOver = false;
 		board = new HantoBoard();
 		pieceFactory = new GammaPieceFactory();
+		stateUpdater = new GammaGameStateUpdater();
+
 	}
 
 	@Override
@@ -50,7 +57,9 @@ public class GammaHantoGame implements HantoGame{
 		if (newPiece.canMove(from, to, pieceColor, board)) {
 			board.addNewPiece(to, newPiece);		
 		}
-		return OK;
+		MoveResult result = stateUpdater.updateGameState(board);
+		if (result != OK) gameOver=true; 
+		return result;
 	}
 
 	@Override
@@ -61,8 +70,7 @@ public class GammaHantoGame implements HantoGame{
 
 	@Override
 	public String getPrintableBoard() {
-		// TODO Auto-generated method stub
-		return null;
+		return board.printBoard();
 	}
 	
 	

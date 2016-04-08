@@ -96,8 +96,6 @@ public class BetaHantoGame implements HantoGame
 		return board.printBoard();
 	}
 
-	
-
 	/*
 	 * ------------------------ Helper Methods ----------------------------------------
 	 */

@@ -31,6 +31,8 @@ public class HantoBoard {
 	private Map<HantoCoordinate, HantoPiece> board = new Hashtable<HantoCoordinate, HantoPiece>();
 	private Integer blueButterflyCount = 0;
 	private Integer redButterflyCount = 0;
+	private Integer blueSparrowCount = 0;
+	private Integer redSparrowCount = 0;
 	private Integer numMoves = 1;
 	
 	
@@ -45,6 +47,7 @@ public class HantoBoard {
 	public void addNewPiece(HantoCoordinate where, HantoPiece what) {
 		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
 		updateButterflyCount(what);	
+		updateSparrowCount(what);
 		board.put(copyWhere, what);
 		numMoves++;
 	}
@@ -145,6 +148,21 @@ public class HantoBoard {
 		return redButterflyCount;
 	}
 	
+	/**
+	 * @return number of blue sparrow on the board
+	 * 
+	 */
+	public Integer getBlueSparrowCount() {
+		return blueSparrowCount;
+	}
+
+	/**
+	 * @return number of red sparrow on the board
+	 * 
+	 */
+	public Integer getRedSparrowCount() {
+		return redSparrowCount;
+	}
 
 	/**
 	 * 
@@ -206,6 +224,17 @@ public class HantoBoard {
 			} 
 			else {
 				redButterflyCount++; 
+			}
+		}
+	}
+	
+	private void updateSparrowCount(HantoPiece checkPiece) {
+		if (checkPiece.getType() == HantoPieceType.SPARROW) {
+			if(checkPiece.getColor() == BLUE) {
+				blueSparrowCount++;
+			} 
+			else {
+				redSparrowCount++; 
 			}
 		}
 	}

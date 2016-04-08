@@ -5,7 +5,6 @@ package hanto.studentzxu3.gamma;
 
 import static hanto.common.HantoPieceType.*;
 import static hanto.common.HantoPlayerColor.*;
-import static hanto.common.HantoPlayerColor.RED;
 
 import java.util.Queue;
 import java.util.Set;
@@ -58,6 +57,7 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 		checkEmptyDestination(to, board);
 		checkButterflyMovesByFourthRound(SPARROW, pieceColor, board);
 		if (from == null) {
+			checkSparrowNum(pieceColor, board);
 			checkAdjacentColor(to, board, pieceColor);
 		}
 		else {
@@ -67,6 +67,8 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 			checkMultipleHexOpening(from, to, board);
 			checkWalkOnlyOneHex(from, to);
 			checkContiguity(from, to, board);
+			checkPieceTypeMatch(from, SPARROW, board);
+
 		}
 
 		isValidMove = true;
@@ -216,5 +218,24 @@ public class SparrowCanWalkValidator implements MoveValidatorStrategy {
 				throw new HantoException("You have to keep the contiguity of the piece!");
 			}
 		}
+	}
+	
+	private void checkSparrowNum(final HantoPlayerColor pieceColor, final HantoBoard board) throws HantoException {
+		boolean validButterflyNum = true;
+		if (pieceColor == BLUE) {
+			System.out.println(board.getBlueSparrowCount());
+			validButterflyNum = !(board.getBlueSparrowCount() >= 5);
+		}
+		if (pieceColor == RED) {
+			validButterflyNum = !(board.getRedSparrowCount() >= 5);
+		}
+		if (!validButterflyNum)  throw new HantoException("You can only place 6 sparrow!");
+	}
+	
+	public void checkPieceTypeMatch(final HantoCoordinate from, final HantoPieceType pieceType, final HantoBoard board) throws HantoException {
+		if (board.getPiece(from).getType() != pieceType) {
+			throw new HantoException("You have to match the piece type of actual piece!");
+		}
+
 	}
 }

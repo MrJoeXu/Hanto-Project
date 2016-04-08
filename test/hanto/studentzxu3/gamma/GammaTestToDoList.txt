@@ -22,8 +22,8 @@
 -	Red places tried to place second butterfly	-> Exception
 -	Blue does not place Butterfly by fourth round -> Exception
 -	Red does not place Butterfly by fourth round -> Exception
-X	Blue tries to place sixth Sparrow -> Exception
-X	Red tries to place sixth Sparrow -> Exception
+-	Blue tries to place sixth Sparrow -> Exception
+-	Red tries to place sixth Sparrow -> Exception
 
 /* ------------- During game, move piece, check from --------------- */
 -	Blue tries to move a non-existing piece -> Exception
@@ -42,19 +42,17 @@ X	Red tries to place sixth Sparrow -> Exception
 -	Red tries to move a piece 2 hex -> Exception
 -	Blue tries to move a piece that caused disconnected configuration -> Exception
 -	Red tries to move a piece that caused disconnected configuration -> Exception
-X	Blue tries to move a piece to an occupied location -> Exception
-X	Red tries to move a piece to an occupied location -> Exception
+-	Blue tries to move a piece to an occupied location -> Exception
+-	Red tries to move a piece to an occupied location -> Exception
 
 /* ------------- Ending game movement--------------- */
 X	Game has no winner after 20 turn -> DRAW
-X 	Player places piece, blue butterfly surrounded -> RED_WINS
-X 	Player places piece, red Butterfly surrounded -> BLUE_WINS
-X 	Player places piece, both players butterflies surrounded -> DRAW
-X	Blue moves a piece to surrounded Red Butterfly and win -> BLUE_WINS 
-X	Blue moves a piece to surrounded Blue Butterfly and self lose -> RED_WINS 
-X	Red moves a piece to surrounded Blue Butterfly and win -> RED_WINS 
-X	Red moves a piece to surrounded Red Butterfly and self lose -> BLUE_WINS 
-X 	Player walks piece, both players butterflies surrounded -> DRAW
+-	Blue moves a piece to surrounded Red Butterfly and win -> BLUE_WINS 
+-	Blue moves a piece to surrounded Blue Butterfly and self lose -> RED_WINS 
+-	Red moves a piece to surrounded Blue Butterfly and win -> RED_WINS 
+-	Red moves a piece to surrounded Red Butterfly and self lose -> BLUE_WINS 
+- 	Player walks piece, both players butterflies surrounded -> DRAW
+X	Try to move a piece but in make move move another piece -> Exception
 
-pieceType not matching
+
 

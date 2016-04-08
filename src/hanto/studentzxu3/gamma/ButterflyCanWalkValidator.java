@@ -68,6 +68,7 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 			checkMultipleHexOpening(from, to, board);
 			checkWalkOnlyOneHex(from, to);
 			checkContiguity(from, to, board);
+			checkPieceTypeMatch(from, BUTTERFLY, board);
 		}
 
 		isValidMove = true;	
@@ -210,6 +211,14 @@ public class ButterflyCanWalkValidator implements MoveValidatorStrategy {
 			if (!copyHex.hasAdjacencyInList(allHexList)) {
 				throw new HantoException("You have to keep the contiguity of the piece!");
 			}
+		}
+	}
+	
+	public void checkPieceTypeMatch(final HantoCoordinate from, final HantoPieceType pieceType, final HantoBoard board) throws HantoException {
+		HantoCoordinateImpl src = new HantoCoordinateImpl(from);
+
+		if (board.getPiece(src).getType() != pieceType) {
+			throw new HantoException("You have to match the piece type of actual piece!");
 		}
 	}
 	
