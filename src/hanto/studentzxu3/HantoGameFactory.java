@@ -12,6 +12,7 @@ package hanto.studentzxu3;
 
 import hanto.common.*;
 import hanto.studentzxu3.beta.BetaHantoGame;
+import hanto.studentzxu3.delta.DeltaHantoGame;
 import hanto.studentzxu3.gamma.GammaHantoGame;
 
 /**
@@ -66,7 +67,10 @@ public class HantoGameFactory
 				break;
 			case GAMMA_HANTO:
 				game = new GammaHantoGame(movesFirst);
-				break;
+				break; 
+			case DELTA_HANTO:
+				game = new DeltaHantoGame(movesFirst);
+				break; 
 		default:
 			break;
 		}

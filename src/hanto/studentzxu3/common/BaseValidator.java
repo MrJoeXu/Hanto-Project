@@ -7,6 +7,9 @@ import static hanto.common.HantoPieceType.*;
 import static hanto.common.HantoPlayerColor.BLUE;
 import static hanto.common.HantoPlayerColor.RED;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
@@ -22,7 +25,11 @@ import hanto.common.HantoPlayerColor;
 public abstract class BaseValidator implements MoveValidatorStrategy {
 	protected boolean isValidMove;
 	protected boolean canWalk;
-	protected HantoPieceType  type;
+	protected boolean canFly;
+	protected HantoPieceType type;
+	protected int maxNum;
+	protected List<HantoCoordinateImpl> movable  = new ArrayList<HantoCoordinateImpl>();
+
 	
 	/**
 	 * 
@@ -60,25 +67,27 @@ public abstract class BaseValidator implements MoveValidatorStrategy {
 		if (from == null) {
 			if(type == BUTTERFLY) checkButterflyNum(pieceColor, board);
 			if (type == SPARROW) checkSparrowNum(pieceColor, board);
+			if (type == CRAB) checkCrabNum(pieceColor, board);
+
 		}
 
-		
-		if (canWalk) {
+		if (!canWalk && !canFly) {
+			checkValidMovementType(from);
+		}
+		else {
 			if(from == null) checkAdjacentColor(to, board, pieceColor);
 			else {
 				checkSourcePieceExist(from, board);
 				checkSourcePieceBelongToPlayer(from, pieceColor, board);
-				checkMultipleHexOpening(from, to, board);
-				checkWalkOnlyOneHex(from, to);
-				checkContiguity(from, to, board);
 				checkPieceTypeMatch(from, to, type, board);	
-				if (type == SPARROW) checkHasButterflyBeforeWalk(pieceColor, board);
-			}
-		} 
-		else{
-			checkValidMovementType(from);
+				if (type != BUTTERFLY) checkHasButterflyBeforeWalk(pieceColor, board);
+				if (canWalk) { 
+					checkMultipleHexOpening(from, to, board);
+					checkWalkOnlyOneHex(from, to);
+					checkContiguity(from, to, board);
+				}
+			}			
 		}
-		
 		isValidMove = true;
 		
 	}
@@ -109,10 +118,11 @@ public abstract class BaseValidator implements MoveValidatorStrategy {
 	private void checkButterflyNum(final HantoPlayerColor pieceColor, final HantoBoard board) throws HantoException{
 		boolean validButterflyNum = true;
 		if (pieceColor == BLUE) {
-			validButterflyNum = !(board.getBlueButterflyCount() > 0);
+			validButterflyNum = !(board.getBlueButterflyCount() > maxNum-1);
 		}
 		if (pieceColor == RED) {
-			validButterflyNum = !(board.getRedButterflyCount() > 0);
+			validButterflyNum = !(board.getRedButterflyCount() > maxNum-1);
+
 		}
 		if (!validButterflyNum)  throw new HantoException("You can only place one butterfly!");
 	}
@@ -185,12 +195,24 @@ public abstract class BaseValidator implements MoveValidatorStrategy {
 	private void checkSparrowNum(final HantoPlayerColor pieceColor, final HantoBoard board) throws HantoException {
 		boolean validButterflyNum = true;
 		if (pieceColor == BLUE) {
-			validButterflyNum = !(board.getBlueSparrowCount() >= 5);
+			validButterflyNum = !(board.getBlueSparrowCount() >= maxNum);
 		}
 		if (pieceColor == RED) {
-			validButterflyNum = !(board.getRedSparrowCount() >= 5);
+			validButterflyNum = !(board.getRedSparrowCount() >= maxNum);
 		}
 		if (!validButterflyNum)  throw new HantoException("You can only place 6 sparrow!");
+	}
+	
+	
+	private void checkCrabNum(final HantoPlayerColor pieceColor, final HantoBoard board) throws HantoException {
+		boolean validCrabNum = true;
+		if (pieceColor == BLUE) {
+			validCrabNum = !(board.getBlueCrabCount() >= maxNum);
+		}
+		if (pieceColor == RED) {
+			validCrabNum = !(board.getRedCrabCount() >= maxNum);
+		}
+		if (!validCrabNum)  throw new HantoException("You can only place 4 Crab!");
 	}
 	
 	
@@ -293,5 +315,7 @@ public abstract class BaseValidator implements MoveValidatorStrategy {
 		}
 
 	}
+	
+	
 
 }

@@ -1,25 +1,26 @@
 /**
  * 
  */
-package hanto.studentzxu3.gamma;
+package hanto.studentzxu3.delta;
 
 import static hanto.common.HantoPieceType.*;
 import hanto.studentzxu3.common.BaseValidator;
+
 import hanto.studentzxu3.common.MoveValidatorStrategy;
 
 /**
  * @author JoeXu
  *
  */
-public class GammaSparrowValidator extends BaseValidator implements MoveValidatorStrategy {
-	
+public class DeltaCrabValidator extends BaseValidator implements MoveValidatorStrategy {	
 	/**
 	 * 
 	 */
-	public GammaSparrowValidator() {
+	public DeltaCrabValidator() {
 		isValidMove = false;
-		type = SPARROW;
+		type = CRAB;
 		canWalk = true;
-		maxNum = 5;
+		maxNum = 4;
 	}
+	
 }

@@ -19,5 +19,6 @@ public class BetaSparrowValidator extends BaseValidator implements MoveValidator
 		isValidMove = false;
 		canWalk = false;
 		type = SPARROW;
+		maxNum = 5;
 	}
 }

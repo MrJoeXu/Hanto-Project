@@ -265,6 +265,10 @@ public class GammaHantoMasterTest {
 		game.makeMove(SPARROW, null, makeCoordinate(1, 1));	// Move 3
 		game.makeMove(SPARROW, null, makeCoordinate(-2, 0));
 		game.makeMove(SPARROW, null, makeCoordinate(2, 0));	// Move 4
+		game.makeMove(SPARROW, null, makeCoordinate(-3, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(3, 0));
+
+
 	}
 	
 	// 21
@@ -279,6 +283,9 @@ public class GammaHantoMasterTest {
 		game.makeMove(SPARROW, null, makeCoordinate(-2, 0));
 		game.makeMove(BUTTERFLY, null, makeCoordinate(2, 0));	// Move 4
 		game.makeMove(SPARROW, null, makeCoordinate(-3, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(3, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(-3, 1));
+
 	}
 	
 	// 22

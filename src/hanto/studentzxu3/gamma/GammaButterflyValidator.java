@@ -32,6 +32,7 @@ public class GammaButterflyValidator extends BaseValidator implements MoveValida
 		isValidMove = false;
 		type = BUTTERFLY;
 		canWalk = true;
+		maxNum = 1;
 	}
 	
 }

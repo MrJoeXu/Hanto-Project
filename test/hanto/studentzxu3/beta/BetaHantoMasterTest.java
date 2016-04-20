@@ -237,17 +237,6 @@ public class BetaHantoMasterTest
 		game.makeMove(BUTTERFLY, null, makeCoordinate(-2, 2));
 	}
 	
-	// 16
-	@Test(expected = HantoException.class)
-	public void blueDoesNotPlaceButterflyByFourthRound() throws HantoException {
-		game.makeMove(SPARROW, null, makeCoordinate(0,0));
-		game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
-		game.makeMove(SPARROW, null, makeCoordinate(1,-1));
-		game.makeMove(SPARROW, null, makeCoordinate(1,-2));
-		game.makeMove(SPARROW, null, makeCoordinate(0,-2));
-		game.makeMove(SPARROW, null, makeCoordinate(-1,-1));
-		game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
-	} 
 	
 	// 17
 	@Test(expected = HantoException.class)
@@ -260,35 +249,11 @@ public class BetaHantoMasterTest
 		game.makeMove(SPARROW, null, makeCoordinate(0,-1));
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
 		game.makeMove(SPARROW, null, makeCoordinate(2, -1));
+		game.makeMove(SPARROW, null, makeCoordinate(-2, 0));
+		game.makeMove(SPARROW, null, makeCoordinate(2, -2));
+
+
 	}
-	
-	// 18
-	@Test
-	public void blueDoesPlaceButterflyAtFourthRound() throws HantoException {
-		game.makeMove(SPARROW, null, makeCoordinate(0,0));
-		game.makeMove(BUTTERFLY, null, makeCoordinate(1,0));
-		game.makeMove(SPARROW, null, makeCoordinate(1,-1));
-		game.makeMove(SPARROW, null, makeCoordinate(1,-2));
-		game.makeMove(SPARROW, null, makeCoordinate(0,-2));
-		game.makeMove(SPARROW, null, makeCoordinate(-1,-1));
-		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(-1, 0));
-		assertEquals(mr, OK);
-	}
-	
-	// 19
-	@Test
-	public void redDoesPlaceButterflyAtFourthRound() throws HantoException {
-		System.out.print("NEW TARGET!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		game.makeMove(BUTTERFLY, null, makeCoordinate(0,0));
-		game.makeMove(SPARROW, null, makeCoordinate(1,0));
-		game.makeMove(SPARROW, null, makeCoordinate(1,-1));
-		game.makeMove(SPARROW, null, makeCoordinate(1,-2));
-		game.makeMove(SPARROW, null, makeCoordinate(0,-2));
-		game.makeMove(SPARROW, null, makeCoordinate(-1,-1));
-		game.makeMove(SPARROW, null, makeCoordinate(0, -3));
-		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(-1, 0));
-		assertEquals(mr, OK);
-	} 
 	
 	// 20
 	@Test

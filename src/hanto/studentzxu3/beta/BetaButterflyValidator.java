@@ -18,5 +18,6 @@ public class BetaButterflyValidator extends BaseValidator implements MoveValidat
 		isValidMove = false;
 		canWalk = false;
 		type = BUTTERFLY;
+		maxNum = 1;
 	}
 }

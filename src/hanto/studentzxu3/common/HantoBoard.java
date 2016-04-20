@@ -33,6 +33,8 @@ public class HantoBoard {
 	private Integer redButterflyCount = 0;
 	private Integer blueSparrowCount = 0;
 	private Integer redSparrowCount = 0;
+	private Integer blueCrabCount = 0;
+	private Integer redCrabCount = 0;
 	private Integer numMoves = 1;
 	
 	
@@ -48,6 +50,7 @@ public class HantoBoard {
 		HantoCoordinateImpl copyWhere = new HantoCoordinateImpl(where);
 		updateButterflyCount(what);	
 		updateSparrowCount(what);
+		updateCrabCount(what);
 		board.put(copyWhere, what);
 			
 		numMoves++;
@@ -178,6 +181,20 @@ public class HantoBoard {
 	public Integer getRedSparrowCount() {
 		return redSparrowCount;
 	}
+	
+	
+
+
+	public int getBlueCrabCount() {
+		return blueCrabCount;
+
+	}
+
+
+
+	public int getRedCrabCount() {
+		return redCrabCount;
+	}
 
 	/**
 	 * 
@@ -187,6 +204,8 @@ public class HantoBoard {
 	public Integer getNumMoves() {
 		return numMoves;
 	}
+	
+	
 
 
 	/**
@@ -253,4 +272,18 @@ public class HantoBoard {
 			}
 		}
 	}
+	
+	private void updateCrabCount(HantoPiece checkPiece) {
+		if (checkPiece.getType() == HantoPieceType.CRAB) {
+			if(checkPiece.getColor() == BLUE) {
+				blueCrabCount++;
+			} 
+			else {
+				redCrabCount++; 
+			}
+		}
+	}
+
+
+
 }
