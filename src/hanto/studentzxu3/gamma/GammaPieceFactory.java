@@ -23,11 +23,11 @@ public class GammaPieceFactory implements HantoPieceFactory {
 		HantoPieceImpl piece = null;
 		switch (pieceType) {
 			case BUTTERFLY:
-				MoveValidatorStrategy butterflyValid = new ButterflyCanWalkValidator();
+				MoveValidatorStrategy butterflyValid = new GammaButterflyValidator();
 				piece = new HantoPieceImpl(pieceColor, BUTTERFLY, butterflyValid);
 				break;
 			case SPARROW:
-				MoveValidatorStrategy sparrowValid = new SparrowCanWalkValidator();
+				MoveValidatorStrategy sparrowValid = new GammaSparrowValidator();
 				piece = new HantoPieceImpl(pieceColor, SPARROW, sparrowValid);
 				break;
 		default:

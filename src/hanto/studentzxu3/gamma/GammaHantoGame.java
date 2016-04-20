@@ -50,7 +50,7 @@ public class GammaHantoGame implements HantoGame{
 		HantoPlayerColor pieceColor = updatePieceColor();
 		
 		HantoPieceImpl newPiece = pieceFactory.makeHantoPiece(pieceType, pieceColor);
-
+		if (gameOver) {throw new HantoException("Game is Over!!!!");}
 		if (newPiece.canMove(from, to, pieceColor, board)) {
 			board.addNewPiece(to, newPiece);
 		}

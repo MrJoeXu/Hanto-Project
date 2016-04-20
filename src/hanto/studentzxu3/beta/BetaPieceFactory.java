@@ -24,11 +24,11 @@ public class BetaPieceFactory implements HantoPieceFactory {
 		HantoPieceImpl piece = null;
 		switch (pieceType) {
 			case BUTTERFLY:
-				MoveValidatorStrategy butterflyValid = new ButterflyValidator();
+				MoveValidatorStrategy butterflyValid = new BetaButterflyValidator();
 				piece = new HantoPieceImpl(pieceColor, BUTTERFLY, butterflyValid);
 				break;
 			case SPARROW:
-				MoveValidatorStrategy sparrowValid = new SparrowValidator();
+				MoveValidatorStrategy sparrowValid = new BetaSparrowValidator();
 				piece = new HantoPieceImpl(pieceColor, SPARROW, sparrowValid);
 				break;
 		default:
